@@ -1,0 +1,1 @@
+Directorio donde se guardaran todos los documentos referentes a la planeacion del proyecto como fase inicial.
