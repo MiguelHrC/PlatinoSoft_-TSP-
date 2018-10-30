@@ -1,6 +1,6 @@
 <?php
 	
-	class Perfil{
+	class Usuarios{
 
 		private $idUsuarios;
 		private $Nombre_Usuario;
