@@ -3,4 +3,6 @@ integromat:platinosoft@outlook.com:@Losplatinos18
 ifttt:platinosoft@mail.com:losplatinos18
 outlook:platinosoft@outlook.com:losplatinos18
 twitter:platinosoft@outlook.com:losplatinos18
+ftp:host:simaparg.com:user:platinosoft.simaparg.com:pass:losplatinos18
+phpmyadmin:www.simaparg.com/tweetmonitordb/:user:platinosoft:pass:losplatinos18
 
