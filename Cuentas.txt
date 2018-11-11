@@ -1,0 +1,6 @@
+mail.com:platinosoft@mail.com:losplatinos18
+integromat:platinosoft@outlook.com:@Losplatinos18
+ifttt:platinosoft@mail.com:losplatinos18
+outlook:platinosoft@outlook.com:losplatinos18
+twitter:platinosoft@outlook.com:losplatinos18
+
