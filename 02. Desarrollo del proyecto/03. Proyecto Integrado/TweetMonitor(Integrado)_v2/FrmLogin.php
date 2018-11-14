@@ -122,6 +122,7 @@ session_start();
                     <legend class="hiddent-xs"><h3>Inició de sesión</h3></legend>
                     <?php  
                         if (!isset($_POST['Usuario']) | !isset($_POST['Contrasena'])) {
+                        
                      ?>
                     <form method="POST" action="FrmLogin.php" class="form-horizontal">
                         <div class="form-group">
@@ -158,6 +159,7 @@ session_start();
                             if ($SQLControlador -> IniciarSesion($Usuarios)){
                                 $_SESSION['Loggedin'] = true;
                                 $_SESSION['Usuario'] = $Usuario;
+
                                 $_SESSION['Contador'] = 0;
                                 echo "<script language='javascript'>window.location='FrmItinerario.php'</script>";
                             }
