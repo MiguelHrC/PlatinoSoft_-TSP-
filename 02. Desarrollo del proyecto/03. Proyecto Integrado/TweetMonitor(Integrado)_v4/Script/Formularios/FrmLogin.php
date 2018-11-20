@@ -23,7 +23,7 @@ session_start();
         }
         
         body{
-            background-image: url(../../imagenes/apple.jpg);
+            background-image: url(../../imagenes/01.jpg);
             background-attachment: fixed;
             background-position: center;
             background-size: cover;
@@ -110,7 +110,7 @@ session_start();
     <div class="container formulario">
         <div class="row">
             <div class="col-xs-4 col-xs-offset-4">
-                <img src="../../imagenes/avatar-transparent-2.png" class="logo center-block">
+                <img src="../../imagenes/02.png" class="logo center-block">
             </div>
         </div>
 
