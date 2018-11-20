@@ -1,0 +1,45 @@
+.navbar {
+    margin-bottom: 0;
+}
+
+/*
+background:#428BCA;
+    color:#fff;
+*/
+.jumbotron {
+    
+    padding:105px 0;
+}
+
+
+.texto_p{
+    padding:105px 0;
+}
+
+.main {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#footer {
+    background:  rgba(0,0,0,.10);
+    border-top:  3px solid black;
+    background:  rgba(0,0,0,.10);
+    margin-top:  100px;
+    text-align:  center;
+    color: white;
+    font-size:  11px;
+    padding: 20px;
+}
+
+#div1 {
+    
+    overflow:scroll;
+    height:600px;
+    width:1200px;
+}
+
+#div1 table {
+    width:1400px;
+    background-color:lightgray;
+}
