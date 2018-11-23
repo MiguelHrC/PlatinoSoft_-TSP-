@@ -171,7 +171,8 @@
         $Nombre = $_POST['Nombre'];
         $Correo = $_POST['Correo'];
         $Usuario = $_POST['Usuario'];
-        $Contrasena = password_hash($_POST['Contrasena'], PASSWORD_BCRYPT); 
+        $Contrasena = $_POST['Contrasena'];
+        //$Contrasena = password_hash($_POST['Contrasena'], PASSWORD_BCRYPT); 
 
         include_once "../Clases/SQLControlador.php";
         include_once "../Clases/Usuarios.php";
@@ -183,7 +184,7 @@
         $Usuarios->setContrasena($Contrasena);
 
         $SQLControlador = new SQLControlador();
-        //$SQLControlador->RegistrarUsuario($Usuarios);
+        $SQLControlador->RegistrarUsuario($Usuarios);
         echo "<script language='javascript'>alert('Registro exitoso')</script>";
         echo "<script language='javascript'>window.location = 'FrmLogin.php'</script>";
     }

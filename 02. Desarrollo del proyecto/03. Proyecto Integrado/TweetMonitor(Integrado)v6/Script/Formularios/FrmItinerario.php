@@ -51,7 +51,9 @@
 					$Mysql = new MySQLConector();
 					$Mysql->Conectar();
 			
-					$consulta = "SELECT * FROM tareas WHERE id_usuario = ".$_SESSION['IdUsuario'].";";
+					$consulta = "SELECT * FROM tareas";
+					/*WHERE id_usuario = ".$_SESSION['IdUsuario'].";";
+					*/
 					$Resultado = $Mysql->Consulta($consulta);
 			
 					if ($Resultado->num_rows > 0) {
@@ -65,8 +67,8 @@
 		<div class="col-xs-8 col-xs-offset-1">
 			<button type="submit" class="btn btn-success glyphicon glyphicon-search"> Consultar</button><br><br>
 		</div>
-		
 	</form>
+	<br>
 	<?php
 if (isset($_GET['id_tarea'])) {
 	$consulta = "SELECT * FROM tareas WHERE id_tarea = " . $_GET['id_tarea'] . ";";
@@ -79,7 +81,7 @@ if (isset($_GET['id_tarea'])) {
 	$dia_fin = $row['dia_fin'];
 	$hora_inicio = $row['hora_inicio'];
 	$hora_fin = $row['hora_fin'];
-
+	echo "<div class='table-responsive'>";
 	echo "<table class='table table-striped table-hover' align='center'>";
 	echo "<thead>";
 	echo "<tr>";
@@ -110,6 +112,7 @@ if (isset($_GET['id_tarea'])) {
 	$Mysql->CerrarConexion();
 	echo "</tbody>";
 	echo "</table>";
+	echo "</div>";
 }
 
 function ObtenerComentario($fecha, $dia_inicio, $dia_fin, $hora_inicio, $hora_fin)

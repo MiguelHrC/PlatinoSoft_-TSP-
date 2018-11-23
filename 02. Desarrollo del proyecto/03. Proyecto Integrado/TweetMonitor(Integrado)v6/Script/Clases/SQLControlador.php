@@ -19,7 +19,8 @@ class SQLControlador
 		$Resultado = $Mysql->Consulta($consulta);
 		$tupla = mysqli_fetch_array($Resultado);
 
-		if (password_verify($Usuarios->getContrasena(), $tupla['Contrasena'])){
+		//if (password_verify($Usuarios->getContrasena(), $tupla['Contrasena'])){
+		if ($Usuarios->getContrasena() == $tupla['Contrasena']) {
 			return true;
 		} else {
 			return false;

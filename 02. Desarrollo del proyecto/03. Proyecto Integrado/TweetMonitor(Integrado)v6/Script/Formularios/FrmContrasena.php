@@ -75,12 +75,11 @@ session_start();
 
                 <div class="container" align="center-block">
                     <div class="row">
-                        <div class="col-xs-8 col-xs-offset-3">
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <input class="btn btn-success center-block" type="submit" name="Actualizar" value="Actualizar"></input>
-                                </div>
-                            </div>
+                        <div class="col-xs-6 col-md-3">
+                            <input class="btn btn-success center-block" type="submit" name="Actualizar" value="Actualizar"></input>
+                        </div>
+                        <div class="col-xs-6">
+                            <a href="./FrmPerfil.php" class="btn btn-danger" name="Cancelar" value="Cancelar"> Cancelar</a>
                         </div>
                     </div>
                 </div>
@@ -98,7 +97,8 @@ session_start();
                         
                         $Usuarios = new Usuarios();
                         $Usuarios -> setidUsuarios($idUsuario);
-                        $Usuarios -> setContrasena(password_hash($contrasena1, PASSWORD_BCRYPT));
+                        $Usuarios->setContrasena($contrasena1);
+                        //$Usuarios -> setContrasena(password_hash($contrasena1, PASSWORD_BCRYPT));
 
                         $SQLControlador -> ModificarContrasena($Usuarios);
                     }

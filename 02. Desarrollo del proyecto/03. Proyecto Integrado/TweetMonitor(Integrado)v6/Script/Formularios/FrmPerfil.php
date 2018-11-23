@@ -77,20 +77,21 @@ session_start();
                         <h4>Usuario:</h4>
                     </label>
                     <div class="col-xs-8 col-xs-offset-1">
-                        <input type=text name=Usuario required class="form-control Input" value="<?php echo $Usuario;?>" disabled>
+                        <input type=text name=Usuario required class="form-control Input" value="<?php echo $Usuario;?>"
+                            disabled>
                     </div>
                 </div>
 
-                <div class="container" align="center-block">
+                <div class="container-fluid" align="center-block">
                     <div class="row">
-                        <div class="col-xs-8 col-xs-offset-3">
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <input class="btn btn-success center-block" type="submit" name="Actualizar" value="Actualizar"></input>
-                                    <a href="./FrmContrasena.php" class="btn btn-warning" name="Contrasena" value="Cambiar Contraseña">Cambiar Contraseña</a>
-                                    <a href="./FrmItinerario.php" class="btn btn-danger" name="Cancelar" value="Cancelar">Cancelar</a>
-                                </div>
-                            </div>
+                        <div class="col-xs-6 col-md-4">
+                            <input class="btn btn-success center-block" type="submit" name="Actualizar" value="Actualizar"></input>
+                        </div>
+                        <div class="col-xs-6 col-md-4">
+                            <a href="./FrmContrasena.php" class="btn btn-warning" name="Contrasena" value="Cambiar Contraseña">Cambiar Contraseña</a>
+                        </div>
+                        <div class="col-xs-6 col-md-4">
+                            <a href="./FrmItinerario.php" class="btn btn-danger" name="Cancelar" value="Cancelar"> Cancelar</a>
                         </div>
                     </div>
                 </div>
@@ -98,8 +99,7 @@ session_start();
             <?php 
                 }else{
                     $Nombrem = $_POST['Nombre'];
-                    
-                    $Usuariom = $_POST['Usuario'];
+                    $Correom = $_POST['Correo']; 
                     //$Contrasena = password_hash($_POST['Contrasena'], PASSWORD_BCRYPT); 
 
                     include_once "../Clases/SQLControlador.php";
@@ -108,8 +108,8 @@ session_start();
                     $Usuarios = new Usuarios();
                     $Usuarios -> setidUsuarios($idUsuario);
                     $Usuarios -> setNombre($Nombrem);
-                    $Usuarios -> setCorreo($Correo);
-                    $Usuarios -> setUsuario($Usuariom);
+                    $Usuarios -> setCorreo($Correom);
+                    $Usuarios -> setUsuario($Usuario);
 
                     $SQLControlador = new SQLControlador();
                     $SQLControlador -> ModificarUsuario($Usuarios);
@@ -119,4 +119,5 @@ session_start();
     </div>
     </div>
 </body>
+
 </html>
