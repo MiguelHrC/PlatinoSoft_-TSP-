@@ -24,8 +24,7 @@ session_start();
                 <div class="collapse navbar-collapse" id="navegacion-fm">
                     <form class="navbar-form navbar-right" id="navegacion">
                         <?php
-                            require_once '/Script/Formularios/FrmBienvenida.php';
-                            //acceso2();
+                            require_once '/Script/Formularios/FrmSesion.php';
                         ?>
                     </form>
                 </div>

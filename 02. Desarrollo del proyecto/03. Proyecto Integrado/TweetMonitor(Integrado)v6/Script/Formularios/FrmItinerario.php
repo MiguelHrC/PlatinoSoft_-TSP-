@@ -46,14 +46,11 @@
 					include_once "../Clases/MySQLConector.php";
 					include_once "../Clases/Tareas.php";
 
-					
-			
 					$Mysql = new MySQLConector();
 					$Mysql->Conectar();
 			
-					$consulta = "SELECT * FROM tareas";
-					/*WHERE id_usuario = ".$_SESSION['IdUsuario'].";";
-					*/
+					$consulta = "SELECT * FROM tareas WHERE id_usuario = ".$_SESSION['IdUsuario'].";";
+					
 					$Resultado = $Mysql->Consulta($consulta);
 			
 					if ($Resultado->num_rows > 0) {
