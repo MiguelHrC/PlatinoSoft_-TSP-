@@ -42,6 +42,7 @@ session_start();
 
 	<body>
 		<p></p>
+		<div class="table-responsive">
 			<table id=table_tareas class="table table-striped table-hover" align="center">
 				<thead>
 					<tr>
@@ -86,6 +87,7 @@ session_start();
 			$Mysql->CerrarConexion();
 			echo "</tbody>";
 			echo "</table>";
+			echo "</div>";
 
 			function NumeroADia($num)
 			{
