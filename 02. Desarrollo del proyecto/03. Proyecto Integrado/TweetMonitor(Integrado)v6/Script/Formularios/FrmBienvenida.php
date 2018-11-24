@@ -30,7 +30,7 @@
             </class>
     </nav>
     <?php
-}
+    }
 
 function acceso()
 {

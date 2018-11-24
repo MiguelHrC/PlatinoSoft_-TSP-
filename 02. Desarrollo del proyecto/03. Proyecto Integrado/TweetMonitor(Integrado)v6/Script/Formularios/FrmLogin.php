@@ -145,12 +145,11 @@ session_start();
                             <input type=password name=Contrasena required class="form-control Input">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <p><input class="btn btn-success center-block " type="submit" name="Inicar" value="Iniciar sesión"></input>
-                            <p></p><a href="FrmRegistrarUsuario.php"><input class="btn btn-primary center-block " type="submit"
-                                    name="Agregar" value="Registrar"></input></a>
+                    <div class="col-xs-6">
+                        <input class="btn btn-success center-block " type="submit" name="Inicar" value="Iniciar sesión"></input>
                     </div>
                 </form>
+                <a href="FrmRegistrarUsuario.php"><input class="btn btn-primary center-block " type="submit" name="Agregar" value="Registrar"></input></a><br>
                 <?php 
                         }else{
                             $Usuario = $_POST['Usuario'];
@@ -184,5 +183,4 @@ session_start();
     </div>
 
 </body>
-
 </html>

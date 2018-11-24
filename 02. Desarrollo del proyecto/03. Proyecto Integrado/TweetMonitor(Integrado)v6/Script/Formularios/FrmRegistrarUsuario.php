@@ -125,7 +125,9 @@
                     ?>
                 <form method="POST" action="FrmRegistrarUsuario.php" class="form-horizontal">
                     <div class="form-group">
-                        <label class="col-xs-12" for="Nombre" color="white"><h4>Nombre:</h4></label>
+                        <label class="col-xs-12" for="Nombre" color="white">
+                            <h4>Nombre:</h4>
+                        </label>
                         <div class="col-xs-10 col-xs-offset-1">
                             <input type=text name=Nombre required class="form-control Input">
                         </div>
@@ -157,16 +159,18 @@
                             <input type=password name=Contrasena required class="form-control Input">
                         </div>
                     </div>
-                    <div class="form-group">
+                    
+                    <div class="col-xs-6">
                         <input class="btn btn-success center-block " type="submit" name="Registrar" value="Registrar"></input>
-                        <p></p><a href="FrmLogin.php"><input class="btn btn-danger center-block " type="submit" name="Agregar"
-                                value="Cancelar"></input></a>
                     </div>
-                </form>
+                    
+                    </form>
+                    <a href="FrmLogin.php"><input class="btn btn-danger center-block " type="submit" name="Cancelar" value="Cancelar"></input></a><br>
             </fieldset>
         </div>
-
-<?php 
+    </div>
+</body>
+    <?php 
     } else {
         $Nombre = $_POST['Nombre'];
         $Correo = $_POST['Correo'];
@@ -189,6 +193,4 @@
         echo "<script language='javascript'>window.location = 'FrmLogin.php'</script>";
     }
 ?>
-    </div>
-</body>
 </html>

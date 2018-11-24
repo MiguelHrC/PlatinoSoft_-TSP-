@@ -12,21 +12,48 @@ session_start();
     <link rel="stylesheet" href="./../../css/bootstrap.min.css">
     <link rel="stylesheet" href="./../../css/bootstrap-theme.css">
     <link rel="stylesheet" href="./../../css/estilos.css">
+    <link rel="stylesheet" href="./../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="./../../css/bootstrap-theme.css">
+    <link rel="stylesheet" href="./../../css/estilos.css">
+    <link rel="stylesheet" href="./../../css/main.css">
+    <script src="./../../js/bootstrap.min.js"></script>
+    <script src="./../../js/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+        crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
 </head>
-<header>
-    <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand">TweetMonitor</a>
-            </div>
-            <!-- Inicia Menu -->
-            <div class="collapse navbar-collapse" id="navegacion-fm">
-                <form class="navbar-form navbar-right" id="navegacion">
-                    <?php
-                            require_once 'FrmBienvenida.php';
-                        ?>
-                </form>
-            </div>
+<header align="center">
+    <?php
+		if (!isset($_SESSION)) {
+			session_start();
+		}
+	?>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Desplegar navegación</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Logotipo</a>
+        </div>
+
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <form class="navbar-form navbar-right role=" navigation">
+                <div class="form-group">
+                    <class="navbar-text">
+                        <a href="./FrmPerfil.php" class="btn btn-primary"><span class="glyphicon glyphicon-user">
+                                <?php echo $_SESSION['Usuario']; ?></span></a>
+                        <a href="./Salir.php" class="btn btn-danger"><span class="glyphicon glyphicon-log-out"> Salir</span></a>
+                        </class>
+                </div>
+            </form>
         </div>
     </nav>
 </header>
@@ -51,7 +78,7 @@ session_start();
                     $Correo = $Fila [3];
                     $Usuario = $Fila [4];
                     
-                        if (!isset($_POST['Nombre']) && !isset($_POST['Correo']) && !isset($_POST['Usuario'])) {                            
+                        if (!isset($_POST['Nombre']) && !isset($_POST['Correo']) && !isset($_POST['Usuario'])) {                         
                     ?>
             <form method="POST" action="./FrmPerfil.php" class="form-horizontal">
                 <div class="form-group">
@@ -112,7 +139,12 @@ session_start();
                     $Usuarios -> setUsuario($Usuario);
 
                     $SQLControlador = new SQLControlador();
-                    $SQLControlador -> ModificarUsuario($Usuarios);
+                        if ($Nombre == $Nombrem && $Correo == $Correom){
+                            echo "<script language='javascript'>alert('No se registraron cambios')</script>";
+                            echo "<script language='javascript'>window.location='../Formularios/FrmPerfil.php'</script>";
+                        }else{
+                            $SQLControlador->ModificarUsuario($Usuarios);
+                        }
                     }
                 ?>
         </fieldset>

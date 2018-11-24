@@ -22,14 +22,17 @@ background:#428BCA;
 }
 
 #footer {
-    background:  rgba(0,0,0,.10);
     border-top:  3px solid black;
+    /*
+    background:  rgba(0,0,0,.10);
+    
     background:  rgba(0,0,0,.10);
     margin-top:  100px;
-    text-align:  center;
-    color: white;
+    text-align:  center;color: white;
     font-size:  11px;
     padding: 20px;
+    */
+    
 }
 
 #div1 {

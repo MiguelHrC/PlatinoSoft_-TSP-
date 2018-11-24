@@ -72,7 +72,7 @@ class SQLControlador
 			Usuario = '" . $Usuarios->getUsuario() . "' Where idUsuarios = " . $Usuarios->getidUsuarios() . ";";
 		if ($Mysql->Consulta($consulta) === true) {
 			echo "<script language='javascript'>alert('Modificacion exitosa')</script>";   
-			echo "<script language='javascript'>window.location='../Formularios/FrmLogin.php'</script>";
+			echo "<script language='javascript'>window.location='../Formularios/FrmPerfil.php'</script>";
 		}
 		$Resultado = $Mysql->Consulta($consulta);
 		$Mysql->CerrarConexion();

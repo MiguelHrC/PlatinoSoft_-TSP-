@@ -12,21 +12,48 @@ session_start();
     <link rel="stylesheet" href="./../../css/bootstrap.min.css">
     <link rel="stylesheet" href="./../../css/bootstrap-theme.css">
     <link rel="stylesheet" href="./../../css/estilos.css">
+    <link rel="stylesheet" href="./../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="./../../css/bootstrap-theme.css">
+    <link rel="stylesheet" href="./../../css/estilos.css">
+    <link rel="stylesheet" href="./../../css/main.css">
+    <script src="./../../js/bootstrap.min.js"></script>
+    <script src="./../../js/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+        crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
 </head>
-<header>
-    <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand">TweetMonitor</a>
-            </div>
-            <!-- Inicia Menu -->
-            <div class="collapse navbar-collapse" id="navegacion-fm">
-                <form class="navbar-form navbar-right" id="navegacion">
-                    <?php
-                            require_once 'FrmBienvenida.php';
-                        ?>
-                </form>
-            </div>
+<header align="center">
+    <?php
+		if (!isset($_SESSION)) {
+			session_start();
+		}
+	?>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Desplegar navegación</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Logotipo</a>
+        </div>
+
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <form class="navbar-form navbar-right role=" navigation">
+                <div class="form-group">
+                    <class="navbar-text">
+                        <a href="./FrmPerfil.php" class="btn btn-primary"><span class="glyphicon glyphicon-user">
+                                <?php echo $_SESSION['Usuario']; ?></span></a>
+                        <a href="./Salir.php" class="btn btn-danger"><span class="glyphicon glyphicon-log-out"> Salir</span></a>
+                        </class>
+                </div>
+            </form>
         </div>
     </nav>
 </header>
@@ -40,19 +67,19 @@ session_start();
                 </h3>
             </legend>
             <?php  
-                    $Us = $_SESSION['Usuario'];
-                    require_once('../../conexion.php');
-                    $Conexion = mysqli_connect("localhost", "root", "", "tweetmonitor");
-                    $Consulta = mysqli_query($Conexion, "SELECT * FROM Usuarios where Usuario =  '$Us' limit 1;");
-                    $Fila = mysqli_fetch_array($Consulta);
+                $Us = $_SESSION['Usuario'];
+                require_once('../../conexion.php');
+                $Conexion = mysqli_connect("localhost", "root", "", "tweetmonitor");
+                $Consulta = mysqli_query($Conexion, "SELECT * FROM Usuarios where Usuario =  '$Us' limit 1;");
+                $Fila = mysqli_fetch_array($Consulta);
+                
+                $idUsuario = $Fila[0];
+                $Nombre = $Fila [1];
+                $Correo = $Fila [3];
+                $Usuario = $Fila [4];
                     
-                    $idUsuario = $Fila[0];
-                    $Nombre = $Fila [1];
-                    $Correo = $Fila [3];
-                    $Usuario = $Fila [4];
-                    
-                        if (!isset($_POST['contrasena1']) && !isset($_POST['contrasena2'])) {                            
-                    ?>
+                if (!isset($_POST['contrasena1']) && !isset($_POST['contrasena2'])) {                            
+            ?>
             <form method="POST" action="./FrmContrasena.php" class="form-horizontal">
                 <div class="form-group">
                     <label class="col-xs-12 col-xs-offset-1" for="Contraseña">
@@ -103,7 +130,8 @@ session_start();
                         $SQLControlador -> ModificarContrasena($Usuarios);
                     }
                     else{
-                        echo "Las contraseñas no coinciden";
+                        echo "<script language='javascript'>alert('Las contraseñas no coinciden')</script>";
+                        echo "<script language='javascript'>window.location='../Formularios/FrmContrasena.php'</script>";
                     }
                     
 
