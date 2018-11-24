@@ -30,7 +30,7 @@
 		public function Consulta($sqlConsulta){
 			$resultado = mysqli_query($this->conexion, $sqlConsulta);
 			if (!$resultado) {
-				echo "ERROR EN LA CONSULTA: ".mysql_error()." .";
+				echo "ERROR EN LA CONSULTA: ".mysqli_error()." .";
 				exit();
 			}
 			return $resultado; 

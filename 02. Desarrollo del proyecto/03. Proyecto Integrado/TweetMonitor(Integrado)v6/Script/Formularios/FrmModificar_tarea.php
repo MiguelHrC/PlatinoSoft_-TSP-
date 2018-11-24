@@ -21,8 +21,8 @@
 			<div class="collapse navbar-collapse" id="navegacion-fm">
 				<form class="navbar-form navbar-right" id="navegacion">
 					<?php
-						require_once 'FrmBienvenida.php';
-					?>
+				require_once 'FrmBienvenida.php';
+				?>
 				</form>
 			</div>
 		</div>
@@ -43,11 +43,11 @@
 	</div>
 	
 	<?php
-	if (!isset($_GET['tarea']) && !isset($_GET['id_usuario']) && !isset($_GET['usuario_twitter']) && !isset($_GET['hashtag']) && !isset($_GET['dia_inicio']) && !isset($_GET['dia_fin']) && !isset($_GET['hora_inicio']) && !isset($_GET['hora_fin'])) {
+if (!isset($_GET['tarea']) && !isset($_GET['id_usuario']) && !isset($_GET['usuario_twitter']) && !isset($_GET['hashtag']) && !isset($_GET['dia_inicio']) && !isset($_GET['dia_fin']) && !isset($_GET['hora_inicio']) && !isset($_GET['hora_fin'])) {
 	include_once "../Clases/MySQLConector.php";
 	$Mysql = new MySQLConector();
 	$Mysql->Conectar();
-	$consulta = "SELECT * FROM tareas WHERE id_tarea = ".$_GET['id_tarea'].";";
+	$consulta = "SELECT * FROM tareas WHERE id_tarea = " . $_GET['id_tarea'] . ";";
 	$Resultado = $Mysql->Consulta($consulta);
 	$row = $Resultado->fetch_array(MYSQLI_ASSOC);
 	$Mysql->CerrarConexion();
@@ -64,14 +64,36 @@
 			<input type="text" name="tarea" maxlength="20" class="form-control Input" value='<?php echo $row['tarea'] ?>' required><br>
 		</div>
 
-		<input type="hidden" name="id_usuario" value=<?php echo "'".$_SESSION['IdUsuario']."'" ?> required><br>
+		<input type="hidden" name="id_usuario" value=<?php echo "'" . $_SESSION['IdUsuario'] . "'" ?> required><br>
 		
 		<label class="col-xs-12 col-xs-offset-1" for="Nombre">
 			Usuario de Twitter:
 		</label>
 
 		<div class="col-xs-5 col-xs-offset-1">
-			<input type="text" name="usuario_twitter" class="form-control Input" value='<?php echo $row['usuario_twitter'] ?>' required><br>
+			<select class="form-control" name="usuario_twitter" id="sel1">
+		<?php
+	include_once "../Clases/MySQLConector.php";
+
+	$Mysql = new MySQLConector();
+	$Mysql->Conectar();
+
+	$consulta = "SELECT DISTINCT usuario FROM `tweets` where permiso LIKE '" . $_SESSION['Usuario'] . "';";
+	$Resultado2 = $Mysql->Consulta($consulta);
+
+	if ($Resultado->num_rows > 0) {
+		while ($row2 = $Resultado2->fetch_array(MYSQLI_ASSOC)) {
+			if ($row2['usuario'] == $row['usuario_twitter']) {
+				echo "<option selected='true'>" . $row2['usuario'] . "</option>";
+			} else {
+				echo "<option>" . $row2['usuario'] . "</option>";
+			}
+
+		}
+	}
+	$Mysql->CerrarConexion();
+	?>
+			</select>
 		</div>
 		
 		<label class="col-xs-12 col-xs-offset-1" for="Nombre">
@@ -88,13 +110,27 @@
 		
 		<div class="col-xs-5 col-xs-offset-1 ">
 			<select name="dia_inicio" class="form-control Input">
-				<option <?php if ($row['dia_inicio']==1) { echo "selected='true'" ; } ?> value="1">Lunes</option>
-				<option <?php if ($row['dia_inicio']==2) { echo "selected='true'" ; } ?> value="2">Martes</option>
-				<option <?php if ($row['dia_inicio']==3) { echo "selected='true'" ; } ?> value="3">Miercoles</option>
-				<option <?php if ($row['dia_inicio']==4) { echo "selected='true'" ; } ?> value="4">Jueves</option>
-				<option <?php if ($row['dia_inicio']==5) { echo "selected='true'" ; } ?> value="5">Viernes</option>
-				<option <?php if ($row['dia_inicio']==6) { echo "selected='true'" ; } ?> value="6">Sabado</option>
-				<option <?php if ($row['dia_inicio']==7) { echo "selected='true'" ; } ?> value="7">Domingo</option>
+				<option <?php if ($row['dia_inicio'] == 1) {
+												echo "selected='true'";
+											} ?> value="1">Lunes</option>
+				<option <?php if ($row['dia_inicio'] == 2) {
+												echo "selected='true'";
+											} ?> value="2">Martes</option>
+				<option <?php if ($row['dia_inicio'] == 3) {
+												echo "selected='true'";
+											} ?> value="3">Miercoles</option>
+				<option <?php if ($row['dia_inicio'] == 4) {
+												echo "selected='true'";
+											} ?> value="4">Jueves</option>
+				<option <?php if ($row['dia_inicio'] == 5) {
+												echo "selected='true'";
+											} ?> value="5">Viernes</option>
+				<option <?php if ($row['dia_inicio'] == 6) {
+												echo "selected='true'";
+											} ?> value="6">Sabado</option>
+				<option <?php if ($row['dia_inicio'] == 7) {
+												echo "selected='true'";
+											} ?> value="7">Domingo</option>
 			</select><br>
 		</div>
 		
@@ -104,13 +140,27 @@
 		
 		<div class="col-xs-5 col-xs-offset-1">
 			<select name="dia_fin" class="form-control Input"	>
-				<option <?php if ($row['dia_fin']==1) { echo "selected='true'" ; } ?> value="1">Lunes</option>
-				<option <?php if ($row['dia_fin']==2) { echo "selected='true'" ; } ?> value="2">Martes</option>
-				<option <?php if ($row['dia_fin']==3) { echo "selected='true'" ; } ?> value="3">Miercoles</option>
-				<option <?php if ($row['dia_fin']==4) { echo "selected='true'" ; } ?> value="4">Jueves</option>
-				<option <?php if ($row['dia_fin']==5) { echo "selected='true'" ; } ?> value="5">Viernes</option>
-				<option <?php if ($row['dia_fin']==6) { echo "selected='true'" ; } ?> value="6">Sabado</option>
-				<option <?php if ($row['dia_fin']==7) { echo "selected='true'" ; } ?> value="7">Domingo</option>
+				<option <?php if ($row['dia_fin'] == 1) {
+												echo "selected='true'";
+											} ?> value="1">Lunes</option>
+				<option <?php if ($row['dia_fin'] == 2) {
+												echo "selected='true'";
+											} ?> value="2">Martes</option>
+				<option <?php if ($row['dia_fin'] == 3) {
+												echo "selected='true'";
+											} ?> value="3">Miercoles</option>
+				<option <?php if ($row['dia_fin'] == 4) {
+												echo "selected='true'";
+											} ?> value="4">Jueves</option>
+				<option <?php if ($row['dia_fin'] == 5) {
+												echo "selected='true'";
+											} ?> value="5">Viernes</option>
+				<option <?php if ($row['dia_fin'] == 6) {
+												echo "selected='true'";
+											} ?> value="6">Sabado</option>
+				<option <?php if ($row['dia_fin'] == 7) {
+												echo "selected='true'";
+											} ?> value="7">Domingo</option>
 			</select><br>
 		</div>
 
@@ -132,6 +182,7 @@
 		</div>	
 	</form>
 <?php
+
 } else {
 	$id_tarea = $_GET['id_tarea'];
 	$tarea = $_GET['tarea'];
@@ -144,7 +195,7 @@
 	$hora_fin = $_GET['hora_fin'];
 
 	include_once "../Clases/SQLControlador.php";
-	include_once "../Clases/Tareas.php";		
+	include_once "../Clases/Tareas.php";
 
 	$Tareas = new Tareas();
 	$Tareas->setidTarea($id_tarea);
@@ -158,7 +209,7 @@
 	$Tareas->setHora_Fin($hora_fin);
 
 	$SQLControlador = new SQLControlador();
-	$SQLControlador -> ModificarTarea($Tareas);
+	$SQLControlador->ModificarTarea($Tareas);
 }
 ?>
 </body>

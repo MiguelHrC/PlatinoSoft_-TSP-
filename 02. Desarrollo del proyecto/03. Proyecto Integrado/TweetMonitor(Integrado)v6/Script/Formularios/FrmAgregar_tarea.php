@@ -24,8 +24,8 @@ session_start();
 			<div class="collapse navbar-collapse" id="navegacion-fm">
 				<form class="navbar-form navbar-right" id="navegacion">
 					<?php
-						require_once 'FrmBienvenida.php';
-					?>
+				require_once 'FrmBienvenida.php';
+				?>
 				</form>
 			</div>
 		</div>
@@ -39,7 +39,7 @@ session_start();
 		<li role="presentation"><a href="FrmConsultar_tareas.php">Consultar tareas</a></li>
 	</ul>
 	<?php
-		if (!isset($_GET['tarea']) && !isset($_GET['id_usuario']) && !isset($_GET['usuario_twitter']) && !isset($_GET['hashtag']) && !isset($_GET['dia_inicio']) && !isset($_GET['dia_fin']) && !isset($_GET['hora_inicio']) && !isset($_GET['hora_fin'])) {
+if (!isset($_GET['tarea']) && !isset($_GET['id_usuario']) && !isset($_GET['usuario_twitter']) && !isset($_GET['hashtag']) && !isset($_GET['dia_inicio']) && !isset($_GET['dia_fin']) && !isset($_GET['hora_inicio']) && !isset($_GET['hora_fin'])) {
 	?>
 	<article class="main--content container" role="article">
 		<div class="post--content">
@@ -56,13 +56,31 @@ session_start();
 						<input type="text" name="tarea" maxlength="20" class="form-control Input" required>
 					</div>
 				</div>
-				<input type="hidden" name="id_usuario" value=<?php echo "'".$_SESSION['IdUsuario']."'" ?> required><br>
+				<input type="hidden" name="id_usuario" value=<?php echo "'" . $_SESSION['IdUsuario'] . "'" ?> required><br>
 				<div class="form-group">
 					<label class="col-xs-12 col-xs-offset-1" for="Nombre">
 						<h5>Usuario Twitter:</h5>
 					</label>
 					<div class="col-xs-8 col-xs-offset-1">
-						<input type="text" name="usuario_twitter" class="form-control Input" required><br>
+						<select class="form-control" name="usuario_twitter" id="sel1">
+		<?php
+	include_once "../Clases/MySQLConector.php";
+
+	$Mysql = new MySQLConector();
+	$Mysql->Conectar();
+
+	$consulta = "SELECT DISTINCT usuario FROM `tweets` where permiso LIKE '" . $_SESSION['Usuario'] . "';";
+	echo $consulta;
+	$Resultado = $Mysql->Consulta($consulta);
+
+	if ($Resultado->num_rows > 0) {
+		while ($row = $Resultado->fetch_array(MYSQLI_ASSOC)) {
+			echo "<option>" . $row['usuario'] . "</option>";
+		}
+	}
+	$Mysql->CerrarConexion();
+	?>
+						</select>
 					</div>
 				</div>
 
@@ -114,7 +132,7 @@ session_start();
 						<h5>Hora de Inicio (Formato 24hrs):</h5>
 					</label>
 					<div class="col-xs-8 col-xs-offset-1">
-						<input type="number" name="hora_inicio" min="0" max="23" class="form-control Input" required><br>
+						<input type="number" name="hora_inicio" min="0" max="23" value="8" class="form-control Input" required><br>
 					</div>
 				</div>
 
@@ -123,7 +141,7 @@ session_start();
 						<h5>Hora de Fin (Formato 24hrs): </h5>
 					</label>
 					<div class="col-xs-8 col-xs-offset-1">
-						<input type="number" name="hora_fin" min="0" max="23" class="form-control Input" required><br>
+						<input type="number" name="hora_fin" min="0" max="23" value="12" class="form-control Input" required><br>
 					</div>
 				</div>
 
@@ -137,6 +155,7 @@ session_start();
 		</div>
 	</article>
 	<?php
+
 } else {
 	$tarea = $_GET['tarea'];
 	$id_usuario = $_GET['id_usuario'];
