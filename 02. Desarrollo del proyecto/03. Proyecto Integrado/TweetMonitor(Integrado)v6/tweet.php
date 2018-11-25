@@ -2,7 +2,9 @@
 	$usuario = null;
 	$nombre_archivo = "log.txt";
 	date_default_timezone_set("America/Mexico_City");
-	require_once('conexion.php');
+	include_once "/Script/Clases/MySQLConector.php";
+	$Mysql = new MySQLConector();
+	$Mysql->Conectar();	
 
 	$fecha = date('Y-m-d H:i:s');
 
@@ -14,14 +16,14 @@
 		$hashtag = BuscarHashtag($texto);
 		$permiso = BuscarPermiso($texto);
 
-		$query = "INSERT INTO tweets 
+		$consulta = "INSERT INTO tweets 
 		(usuario, fecha, texto, hashtag, permiso) 
 		VALUES 
 		('$usuario', '$fecha', '$texto', '$hashtag', '$permiso')";
-		if ($conexion->query($query) === TRUE) {
+		if ($Mysql->Consulta($consulta) === TRUE) {
 			echo "Tweet agregado exitosamente!";
 		} else {
-			echo "Error en la consulta: ".$query."\n Error: ".$conexion->error; 
+			echo "Error en la consulta: ". $consulta ."\n Error: ".$Mysql->error; 
 		}
 	}
 

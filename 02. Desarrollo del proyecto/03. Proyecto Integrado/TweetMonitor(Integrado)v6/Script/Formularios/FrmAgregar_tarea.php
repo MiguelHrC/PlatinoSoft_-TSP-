@@ -3,6 +3,7 @@ session_start();
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>Agregar tarea
 	</title>
@@ -20,17 +21,17 @@ session_start();
 	 crossorigin="anonymous">
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-	 crossorigin="anonymous">	
+	 crossorigin="anonymous">
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	 crossorigin="anonymous"></script>
 </head>
 <header align="center">
 	<?php
-		if (!isset($_SESSION)) {
-			session_start();
-		}
-	?>
+if (!isset($_SESSION)) {
+	session_start();
+}
+?>
 	<nav class="navbar navbar-default" role="navigation">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -87,23 +88,23 @@ if (!isset($_GET['tarea']) && !isset($_GET['id_usuario']) && !isset($_GET['usuar
 					</label>
 					<div class="col-xs-8 col-xs-offset-1">
 						<select class="form-control" name="usuario_twitter" id="sel1">
-		<?php
-	include_once "../Clases/MySQLConector.php";
+						<?php
+							include_once "../Clases/MySQLConector.php";
 
-	$Mysql = new MySQLConector();
-	$Mysql->Conectar();
+							$Mysql = new MySQLConector();
+							$Mysql->Conectar();
 
-	$consulta = "SELECT DISTINCT usuario FROM `tweets` where permiso LIKE '" . $_SESSION['Usuario'] . "';";
-	echo $consulta;
-	$Resultado = $Mysql->Consulta($consulta);
+							$consulta = "SELECT DISTINCT usuario FROM `tweets` where permiso LIKE '" . $_SESSION['Usuario'] . "';";
+							echo $consulta;
+							$Resultado = $Mysql->Consulta($consulta);
 
-	if ($Resultado->num_rows > 0) {
-		while ($row = $Resultado->fetch_array(MYSQLI_ASSOC)) {
-			echo "<option>" . $row['usuario'] . "</option>";
-		}
-	}
-	$Mysql->CerrarConexion();
-	?>
+							if ($Resultado->num_rows > 0) {
+								while ($row = $Resultado->fetch_array(MYSQLI_ASSOC)) {
+									echo "<option>" . $row['usuario'] . "</option>";
+								}
+							}
+							$Mysql->CerrarConexion();
+							?>
 						</select>
 					</div>
 				</div>

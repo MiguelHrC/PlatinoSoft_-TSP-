@@ -24,7 +24,6 @@
 			if( ! $this->conexion = mysqli_connect($this->servidor, $this->usuario, $this->password, $this->bd)) {
     			die('No connection: ' . mysqli_connect_error());
 			}
-			
 		}
 
 		public function Consulta($sqlConsulta){
@@ -43,6 +42,5 @@
 		public function UltimoID(){
 			return mysqli_insert_id($this->conexion);
 		}
-		
 	}
 ?>

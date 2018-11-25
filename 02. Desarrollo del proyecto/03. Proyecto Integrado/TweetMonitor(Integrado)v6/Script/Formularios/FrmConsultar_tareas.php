@@ -103,7 +103,7 @@ session_start();
 					echo "<td>" . $row['hora_fin'] . "</td>";
 					echo "<td>";
 					echo "<a href='FrmModificar_tarea.php?id_tarea=" . $row['id_tarea'] . "' class='btn btn-primary glyphicon glyphicon-pencil'></a>";
-					echo "	<a href='../../eliminar_tarea.php?id_tarea=" . $row['id_tarea'] . "' class='btn btn-danger glyphicon glyphicon-minus'></a>";
+					echo "	<a href='./eliminar_tarea.php?id_tarea=" . $row['id_tarea'] . "' class='btn btn-danger glyphicon glyphicon-minus'></a>";
 					echo "</td>";
 					echo "</tr>";
 				}

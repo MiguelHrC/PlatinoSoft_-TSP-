@@ -68,10 +68,12 @@ session_start();
             </legend>
             <?php  
                     $Us = $_SESSION['Usuario'];
-                    require_once('../../conexion.php');
-                    $Conexion = mysqli_connect("localhost", "root", "", "tweetmonitor");
-                    $Consulta = mysqli_query($Conexion, "SELECT * FROM Usuarios where Usuario =  '$Us' limit 1;");
-                    $Fila = mysqli_fetch_array($Consulta);
+                    include_once "../Clases/MySQLConector.php";
+                    $Mysql = new MySQLConector();
+                    $Mysql->Conectar();
+                    $consulta = "SELECT * FROM Usuarios where Usuario =  '$Us' limit 1;";
+                    $Resultado = $Mysql->Consulta($consulta);
+                    $Fila = mysqli_fetch_array($Resultado);
                     
                     $idUsuario = $Fila[0];
                     $Nombre = $Fila [1];

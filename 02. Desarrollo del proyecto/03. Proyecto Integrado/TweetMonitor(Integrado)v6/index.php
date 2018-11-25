@@ -17,14 +17,6 @@ session_start();
     if (!isset($_SESSION)) {
         session_start();
     }
-    function Sesion()
-    {
-        if (isset($_SESSION['Loggedin']) && $_SESSION['Loggedin'] == true && $_SESSION['Usuario']) {
-            ?>
-    
-    <?php
-    }
-    }
     ?>
     <nav class="navbar navbar-default" role="navigation">
         <div class="navbar-header">
@@ -42,7 +34,7 @@ session_start();
                 <div class="form-group">
                     <class="navbar-text">
                         <?php
-                        if (isset($_SESSION['Usuario'])) {
+                            if (isset($_SESSION['Usuario'])) {
                         ?>
                         <nav class="navbar navbar-light bg-light">
                             <class="navbar-text">
@@ -52,13 +44,12 @@ session_start();
                                 </class>
                         </nav>
                         <?php
-                        }else{
+                    } else {
                         ?>
                             <a href="./Script/Formularios/FrmLogin.php" class="btn btn-primary"><span class="glyphicon glyphicon-log-in"> Ingresar</span></a>
                         <?php
-                        }
+                    }
                         ?>
-                        
                     </class>
                 </div>
             </form>
@@ -73,13 +64,6 @@ session_start();
             <h2>Sistema de monitoreo</h2>
         </div>
     </div>
-    <section class="main">
-        <div id="contenido">
-            <?php
-                //require_once 'script/menu.php';
-                ?>
-        </div>
-    </section>
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/funciones.js"></script>
