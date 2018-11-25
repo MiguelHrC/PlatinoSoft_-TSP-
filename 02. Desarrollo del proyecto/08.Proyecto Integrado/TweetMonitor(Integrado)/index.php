@@ -39,8 +39,8 @@ session_start();
                         <nav class="navbar navbar-light bg-light">
                             <class="navbar-text">
                             <a href="./Script/Formularios/FrmPerfil.php" class="btn btn-primary"><span class="glyphicon glyphicon-user">
-                                    <?php echo $_SESSION['Usuario']; ?></span></a>;
-                            <a href="./Script/Formularios/Salir.php" class="btn btn-danger"><span class="glyphicon glyphicon-log-out"> Salir</span></a>;
+                                    <?php echo $_SESSION['Usuario']; ?></span></a>
+                            <a href="./Script/Formularios/Salir.php" class="btn btn-danger"><span class="glyphicon glyphicon-log-out"> Salir</span></a>
                                 </class>
                         </nav>
                         <?php
