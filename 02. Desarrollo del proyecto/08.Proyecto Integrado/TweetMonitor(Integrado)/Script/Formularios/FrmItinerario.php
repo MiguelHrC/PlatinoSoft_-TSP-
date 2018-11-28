@@ -109,6 +109,7 @@ if (isset($_GET['id_tarea'])) {
 	$dia_fin = $row['dia_fin'];
 	$hora_inicio = $row['hora_inicio'];
 	$hora_fin = $row['hora_fin'];
+	/*
 	echo "<div class='table-responsive'>";
 	echo "<table class='table table-striped table-hover' align='center'>";
 	echo "<thead>";
@@ -120,10 +121,9 @@ if (isset($_GET['id_tarea'])) {
 	echo "<th>Comentario</th>";
 	echo "</tr>";
 	echo "</thead>";
-
 	echo "<tbody>";
+	
 	$comentario = "Sin Comentarios";
-	/*
 	$consulta = "SELECT usuario, fecha, texto, hashtag FROM `tweets` WHERE hashtag LIKE '$hashtag' and usuario LIKE '$usuario' AND permiso LIKE '".$_SESSION['Usuario']."' ORDER BY fecha DESC;";
 	$Resultado = $Mysql->Consulta($consulta);
 
