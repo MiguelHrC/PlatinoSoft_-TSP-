@@ -109,41 +109,7 @@ if (isset($_GET['id_tarea'])) {
 	$dia_fin = $row['dia_fin'];
 	$hora_inicio = $row['hora_inicio'];
 	$hora_fin = $row['hora_fin'];
-	/*
-	echo "<div class='table-responsive'>";
-	echo "<table class='table table-striped table-hover' align='center'>";
-	echo "<thead>";
-	echo "<tr>";
-	echo "<th>Usuario</th>";
-	echo "<th>Fecha</th>";
-	echo "<th>Texto</th>";
-	echo "<th>Hashtag</th>";
-	echo "<th>Comentario</th>";
-	echo "</tr>";
-	echo "</thead>";
-	echo "<tbody>";
-	
-	$comentario = "Sin Comentarios";
-	$consulta = "SELECT usuario, fecha, texto, hashtag FROM `tweets` WHERE hashtag LIKE '$hashtag' and usuario LIKE '$usuario' AND permiso LIKE '".$_SESSION['Usuario']."' ORDER BY fecha DESC;";
-	$Resultado = $Mysql->Consulta($consulta);
 
-	if ($Resultado->num_rows > 0) {
-		while ($row = $Resultado->fetch_array(MYSQLI_ASSOC)) {
-			echo "<tr>";
-			echo "<td>" . $row['usuario'] . "</td>";
-			echo "<td>" . date('d-m-Y H:i', strtotime($row['fecha'])) . "</td>";
-			echo "<td>" . $row['texto'] . "</td>";
-			echo "<td>" . $row['hashtag'] . "</td>";
-			echo "<td>" . ObtenerComentario($row['fecha'], $dia_inicio, $dia_fin, $hora_inicio, $hora_fin) . "</td>";
-			echo "</tr>";
-		}
-	}
-//	$Mysql->CerrarConexion();
-	echo "</tbody>";
-	echo "</table>";
-	echo "</div>";	
-}
-	 */
 	echo "<div class='comments-container'>";
 	echo "<h1>Itinerario <a href='#'>TweetMonitor</a></h1>";
 
