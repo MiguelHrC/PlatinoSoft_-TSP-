@@ -113,10 +113,10 @@ if (isset($_GET['id_tarea'])) {
 	echo "<div class='comments-container'>";
 	echo "<h1>Itinerario <a href='#'>TweetMonitor</a></h1>";
 
-	$consulta2 = "SELECT usuario, fecha, texto, hashtag FROM `tweets` WHERE hashtag LIKE '$hashtag' and usuario LIKE '$usuario' AND permiso LIKE '" . $_SESSION['Usuario'] . "' ORDER BY fecha DESC;";
-	$Resultado2 = $Mysql->Consulta($consulta2);
-	if ($Resultado2->num_rows > 0) {
-		while ($row2 = $Resultado2->fetch_array(MYSQLI_ASSOC)) {
+	$consulta = "SELECT usuario, fecha, texto, hashtag FROM `tweets` WHERE hashtag LIKE '$hashtag' and usuario LIKE '$usuario' AND permiso LIKE '" . $_SESSION['Usuario'] . "' ORDER BY fecha DESC;";
+	$Resultado = $Mysql->Consulta($consulta);
+	if ($Resultado->num_rows > 0) {
+		while ($row = $Resultado->fetch_array(MYSQLI_ASSOC)) {
 			echo "<ul id='comments-list' class='comments-list'>";
 			echo "<li>";
 			echo "<div class='comments-main-level'>";
@@ -125,13 +125,13 @@ if (isset($_GET['id_tarea'])) {
 			echo "<!--Contenedor del comentario-->";
 			echo "<div class='comments-box'>";
 			echo "<div class='comment-head'>";
-			echo "<h6 class='comment-name by-author'><a href='#'> " . $row2['usuario'] . " </a> </h6>";
-			echo "<span>" . date('d-m-Y H:i', strtotime($row2['fecha'])) . "</span>";
+			echo "<h6 class='comment-name by-author'><a href='#'> " . $row['usuario'] . " </a> </h6>";
+			echo "<span>" . date('d-m-Y H:i', strtotime($row['fecha'])) . "</span>";
 			echo "<i></i>";
 			echo "</div>";
 			echo "<div class='comment-content'>";
-			echo "" . $row2['texto'] . "<br>";
-			echo "" . ObtenerComentario($row2['fecha'], $dia_inicio, $dia_fin, $hora_inicio, $hora_fin) . "";
+			echo "" . $row['texto'] . "<br>";
+			echo "" . ObtenerComentario($row['fecha'], $dia_inicio, $dia_fin, $hora_inicio, $hora_fin) . "";
 			echo "</div>";
 			echo "</div>";
 			echo "</div>";
@@ -150,9 +150,7 @@ function ObtenerComentario($fecha, $dia_inicio, $dia_fin, $hora_inicio, $hora_fi
 		if (date('H', $date) >= $hora_inicio && date('H', $date) <= $hora_fin) {
 			return "Correcto";
 		} else {
-			echo "<div color = 'red'>";
 			return "Comportamiento Extraño: Hora";
-			echo "</div>";
 		}
 	} else {
 		if (date('H', $date) >= $hora_inicio && date('H', $date) <= $hora_fin) {
