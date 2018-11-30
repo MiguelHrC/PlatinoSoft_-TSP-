@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-11-2018 a las 01:29:51
+-- Tiempo de generación: 28-11-2018 a las 21:45:40
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `tareas` (
   `hora_inicio` int(2) NOT NULL,
   `hora_fin` int(2) NOT NULL,
   PRIMARY KEY (`id_tarea`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 -- --------------------------------------------------------
 
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `tweets` (
   `hashtag` tinytext,
   `permiso` tinytext,
   PRIMARY KEY (`id_tweet`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 -- --------------------------------------------------------
 
@@ -69,8 +69,10 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `Contrasena` varchar(20) DEFAULT NULL,
   `Correo` varchar(50) DEFAULT NULL,
   `Usuario` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`idUsuarios`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+  PRIMARY KEY (`idUsuarios`),
+  UNIQUE KEY `Correo` (`Correo`),
+  UNIQUE KEY `Usuario` (`Usuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
