@@ -81,9 +81,8 @@ session_start();
 					</tr>
 				</thead>
 				<tbody>
-
-					<?php
-			include_once "../Clases/MySQLConector.php";
+		<?php		
+		include_once "../Clases/MySQLConector.php";
 
 			$Mysql = new MySQLConector();
 			$Mysql->Conectar();

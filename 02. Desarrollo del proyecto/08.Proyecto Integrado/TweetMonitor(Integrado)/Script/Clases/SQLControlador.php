@@ -12,7 +12,7 @@ class SQLControlador
 	}
 
 	public function IniciarSesion($Usuarios)
-	{   
+	{
 		$Mysql = new MySQLConector();
 		$Mysql->Conectar();
 		$consulta = "SELECT * FROM usuarios WHERE Usuario = '" . $Usuarios->getUsuario() . "';";
@@ -48,16 +48,34 @@ class SQLControlador
 	{
 		$Mysql = new MySQLConector();
 		$Mysql->Conectar();
-		$consulta = "INSERT INTO Usuarios (idUsuarios, Nombre, Contrasena, Correo, Usuario)
+
+		$ConsultaCorreo = "SELECT * FROM usuarios WHERE Correo = '" . $Usuarios->getCorreo() . "';";
+		$ConsultaUsuario = "SELECT * FROM usuarios WHERE Usuario = '" . $Usuarios->getUsuario() . "';";
+		$ResCo = $Mysql->Consulta($ConsultaCorreo);
+		$ResUs = $Mysql->Consulta($ConsultaUsuario);
+
+		if (($ResUs->num_rows == 1) && ($ResCo->num_rows == 1)) {
+			echo "<script language='javascript'>alert('El corrreo " . $Usuarios->getCorreo() . " y el usuario " . $Usuarios->getUsuario() . " ya se encuentran registrados')</script>";
+			echo "<script language='javascript'>window.location='../Formularios/FrmRegistrarUsuario.php'</script>";			
+		}else if ($ResCo->num_rows == 1){
+			echo "<script language='javascript'>alert('El corrreo " . $Usuarios->getCorreo() . " ya se encuentra registro')</script>";
+			echo "<script language='javascript'>window.location='../Formularios/FrmRegistrarUsuario.php'</script>";			
+		}else if ($ResUs->num_rows == 1) {
+			echo "<script language='javascript'>alert('El usuario " . $Usuarios->getUsuario() . " ya se encuentra registrado')</script>";
+			echo "<script language='javascript'>window.location='../Formularios/FrmRegistrarUsuario.php'</script>";			
+		} else {
+			$consulta = "INSERT INTO Usuarios (idUsuarios, Nombre, Contrasena, Correo, Usuario)
 			VALUES (
 			null,
 			'" .
-			$Usuarios->getNombre() . "','" .
-			$Usuarios->getContrasena() . "','" .
-			$Usuarios->getCorreo() . "','" .
-			$Usuarios->getUsuario() .
-			"');";
-
+				$Usuarios->getNombre() . "','" .
+				$Usuarios->getContrasena() . "','" .
+				$Usuarios->getCorreo() . "','" .
+				$Usuarios->getUsuario() .
+				"');";
+			echo "<script language='javascript'>alert('¡Registro completado con éxito!')</script>";
+			echo "<script language='javascript'>window.location='../Formularios/FrmLogin.php'</script>";			
+		}
 		$Resultado = $Mysql->Consulta($consulta);
 		$Mysql->CerrarConexion();
 	}
@@ -66,15 +84,22 @@ class SQLControlador
 	{
 		$Mysql = new MySQLConector();
 		$Mysql->Conectar();
-		$consulta = "UPDATE usuarios Set  
+		$ConsultaCorreo = "SELECT * FROM usuarios WHERE Correo = '" . $Usuarios->getCorreo() . "';";
+		$ResCo = $Mysql->Consulta($ConsultaCorreo);
+		if ($ResCo->num_rows == 1) {
+			echo "<script language='javascript'>alert('El corrreo " . $Usuarios->getCorreo() . " ya se encuentra registro')</script>";
+			echo "<script language='javascript'>window.location='../Formularios/FrmPerfil.php'</script>";
+		} else {
+			$consulta = "UPDATE usuarios Set  
 			Nombre = '" . $Usuarios->getNombre() . "', 
 			Correo = '" . $Usuarios->getCorreo() . "',  
 			Usuario = '" . $Usuarios->getUsuario() . "' Where idUsuarios = " . $Usuarios->getidUsuarios() . ";";
-		if ($Mysql->Consulta($consulta) === true) {
-			echo "<script language='javascript'>alert('Modificacion exitosa')</script>";   
-			echo "<script language='javascript'>window.location='../Formularios/FrmPerfil.php'</script>";
+			if ($Mysql->Consulta($consulta) === true) {
+				echo "<script language='javascript'>alert('Modificacion exitosa')</script>";
+				echo "<script language='javascript'>window.location='../Formularios/FrmPerfil.php'</script>";
+			}
+			$Resultado = $Mysql->Consulta($consulta);
 		}
-		$Resultado = $Mysql->Consulta($consulta);
 		$Mysql->CerrarConexion();
 	}
 
@@ -85,7 +110,7 @@ class SQLControlador
 		$consulta = "UPDATE usuarios Set  
 			Contrasena = '" . $Usuarios->getContrasena() . "' Where idUsuarios = " . $Usuarios->getidUsuarios() . ";";
 		if ($Mysql->Consulta($consulta) === true) {
-			echo "<script language='javascript'>alert('Modificacion exitosa')</script>";   
+			echo "<script language='javascript'>alert('Modificacion exitosa')</script>";
 			echo "<script language='javascript'>window.location='../Formularios/FrmLogin.php'</script>";
 		}
 		$Resultado = $Mysql->Consulta($consulta);
@@ -142,7 +167,7 @@ class SQLControlador
 		} else {
 			echo "Error en la consulta: " . $consulta . "\n Error: " . $Mysql->error;
 		}
-		$Mysql->CerrarConexion();	
+		$Mysql->CerrarConexion();
 	}
 
 	public function CerrarSesion()

@@ -78,9 +78,11 @@ session_start();
                 
                 $idUsuario = $Fila[0];
                 $Nombre = $Fila [1];
+                $Contrasena = $Fila[2];
                 $Correo = $Fila [3];
                 $Usuario = $Fila [4];
-                    
+
+                echo $Contrasena;
                 if (!isset($_POST['contrasena1']) && !isset($_POST['contrasena2'])) {                            
             ?>
             <form method="POST" action="./FrmContrasena.php" class="form-horizontal">
@@ -114,33 +116,29 @@ session_start();
                     </div>
                 </div>
             </form>
-            <?php 
-                }else{
-                    $contrasena1 = $_POST['contrasena1'];
-                    $contrasena2 = $_POST['contrasena2'];
-                    //$Contrasena = password_hash($_POST['Contrasena'], PASSWORD_BCRYPT); 
+    <?php 
+    } else {
+        $contrasena1 = $_POST['contrasena1'];
+        $contrasena2 = $_POST['contrasena2'];
+        if (($Contrasena == $contrasena1) && ($Contrasena == $contrasena2)) {
+            echo "<script language='javascript'>alert('No se registraron cambios')</script>";
+            echo "<script language='javascript'>window.location='../Formularios/FrmContrasena.php'</script>";
+        } else if ($contrasena1 == $contrasena2) {
+            include_once "../Clases/SQLControlador.php";
+            include_once "../Clases/Usuarios.php";
+            $SQLControlador = new SQLControlador();
 
-                    include_once "../Clases/SQLControlador.php";
-
-                    if ($contrasena1 == $contrasena2){
-                        $SQLControlador = new SQLControlador();
-                        
-                        $Usuarios = new Usuarios();
-                        $Usuarios -> setidUsuarios($idUsuario);
-                        $Usuarios->setContrasena($contrasena1);
-                        //$Usuarios -> setContrasena(password_hash($contrasena1, PASSWORD_BCRYPT));
-
-                        $SQLControlador -> ModificarContrasena($Usuarios);
-                    }
-                    else{
-                        echo "<script language='javascript'>alert('Las contraseñas no coinciden')</script>";
-                        echo "<script language='javascript'>window.location='../Formularios/FrmContrasena.php'</script>";
-                    }
-                    
-
-                    
-                    }
-                ?>
+            $Usuarios = new Usuarios();
+            $Usuarios->setidUsuarios($idUsuario);
+            $Usuarios->setContrasena($contrasena1);
+                            //$Usuarios -> setContrasena(password_hash($contrasena1, PASSWORD_BCRYPT));
+            $SQLControlador->ModificarContrasena($Usuarios);
+        } else {
+            echo "<script language='javascript'>alert('Las contraseñas no coinciden')</script>";
+            echo "<script language='javascript'>window.location='../Formularios/FrmContrasena.php'</script>";
+        }
+    }
+    ?>
         </fieldset>
     </div>
     </div>

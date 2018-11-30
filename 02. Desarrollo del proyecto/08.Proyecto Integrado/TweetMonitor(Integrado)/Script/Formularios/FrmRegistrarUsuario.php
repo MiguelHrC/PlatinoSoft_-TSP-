@@ -189,8 +189,6 @@
 
         $SQLControlador = new SQLControlador();
         $SQLControlador->RegistrarUsuario($Usuarios);
-        echo "<script language='javascript'>alert('Registro exitoso')</script>";
-        echo "<script language='javascript'>window.location = 'FrmLogin.php'</script>";
     }
-?>
+    ?>
 </html>

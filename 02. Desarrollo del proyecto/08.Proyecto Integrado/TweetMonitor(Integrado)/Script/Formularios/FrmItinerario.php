@@ -98,6 +98,10 @@ if (!isset($_SESSION)) {
 	</form>
 	<br>
 	<?php
+include_once "../Clases/MySQLConector.php";
+include_once "../Clases/Tareas.php";
+$Mysql = new MySQLConector();
+$Mysql->Conectar();
 if (isset($_GET['id_tarea'])) {
 	$consulta = "SELECT * FROM tareas WHERE id_tarea = " . $_GET['id_tarea'] . ";";
 	$Resultado = $Mysql->Consulta($consulta);
