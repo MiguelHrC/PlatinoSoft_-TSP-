@@ -44,7 +44,9 @@ if (!isset($_SESSION)) {
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">Logotipo</a>
+			<a class="navbar-brand" href="FrmItinerario.php">
+				<img class='img-responsive' width='150' src='../../imagenes/logo.png' alt='Logo'>
+			</a>
 		</div>
 
 		<div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -102,8 +104,22 @@ if (!isset($_SESSION)) {
 		include_once "../Clases/Tareas.php";
 		$Mysql = new MySQLConector();
 		$Mysql->Conectar();
-		if (isset($_GET['id_tarea'])) {
-			$Consulta = "SELECT * FROM tareas WHERE id_tarea = " . $_GET['id_tarea'] . ";";
+		$id_tarea = 0;
+		if(isset($_GET['id_tarea'])){
+			$id_tarea = $_GET['id_tarea'];
+		}
+		else{
+			$query = "SELECT id_tarea FROM tareas WHERE id_usuario = ".$_SESSION['IdUsuario'].";";
+			$result = $Mysql->Consulta($query);
+			if ($result->num_rows > 0) {
+				$row = $result->fetch_array(MYSQLI_ASSOC);
+				$id_tarea = $row['id_tarea'];
+			}
+		}
+		
+		if (isset($id_tarea) && $id_tarea != 0) {
+			echo "id_tarea = ".$id_tarea;
+			$Consulta = "SELECT * FROM tareas WHERE id_tarea = " . $id_tarea . ";";
 			$Resultado = $Mysql->Consulta($Consulta);
 			$Row = $Resultado->fetch_array(MYSQLI_ASSOC);
 
@@ -152,15 +168,15 @@ if (!isset($_SESSION)) {
 			$Date = date(strtotime($Fecha));
 			if (date('N', $Date) >= $Dia_Inicio && date('N', $Date) <= $Dia_Fin) {
 				if (date('H', $Date) >= $Hora_Inicio && date('H', $Date) <= $Hora_Fin) {
-					return "Comportamiento Normal";
+					return "<strong style='color:green'>Comportamiento Normal<strong>";
 				} else {
-					return "Comportamiento Extraño: Hora";
+					return "<strong style='color:red'>Comportamiento Extraño: Hora<strong>";
 				}
 			} else {
 				if (date('H', $Date) >= $Hora_Inicio && date('H', $Date) <= $Hora_Fin) {
-					return "Comportamiento Extraño: Dia";
+					return "<strong style='color:red'>Comportamiento Extraño: Dia<strong>";
 				} else {
-					return "Comportamiento Extraño: Dia y Hora";
+					return "<strong style='color:red'>Comportamiento Extraño: Dia y Hora<strong>";
 				}
 			}
 		}

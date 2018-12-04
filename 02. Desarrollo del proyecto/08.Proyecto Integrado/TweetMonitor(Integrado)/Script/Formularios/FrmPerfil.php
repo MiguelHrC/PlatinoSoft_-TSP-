@@ -41,7 +41,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Logotipo</a>
+            <a class="navbar-brand" href="FrmItinerario.php">
+                <img class='img-responsive' width='150' src='../../imagenes/logo.png' alt='Logo'>
+            </a>
         </div>
 
         <div class="collapse navbar-collapse navbar-ex1-collapse">

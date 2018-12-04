@@ -1,26 +1,26 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.14
--- http://www.phpmyadmin.net
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 28-11-2018 a las 21:45:40
--- Versión del servidor: 5.6.17
--- Versión de PHP: 5.5.12
+-- Servidor: 127.0.0.1:3306
+-- Tiempo de generación: 04-12-2018 a las 05:53:21
+-- Versión del servidor: 5.7.19
+-- Versión de PHP: 5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Base de datos: `tweetmonitor`
 --
-CREATE DATABASE IF NOT EXISTS `tweetmonitor` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `tweetmonitor`;
 
 -- --------------------------------------------------------
 
@@ -28,6 +28,7 @@ USE `tweetmonitor`;
 -- Estructura de tabla para la tabla `tareas`
 --
 
+DROP TABLE IF EXISTS `tareas`;
 CREATE TABLE IF NOT EXISTS `tareas` (
   `id_tarea` int(11) NOT NULL AUTO_INCREMENT,
   `tarea` tinytext NOT NULL,
@@ -39,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `tareas` (
   `hora_inicio` int(2) NOT NULL,
   `hora_fin` int(2) NOT NULL,
   PRIMARY KEY (`id_tarea`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -47,6 +48,7 @@ CREATE TABLE IF NOT EXISTS `tareas` (
 -- Estructura de tabla para la tabla `tweets`
 --
 
+DROP TABLE IF EXISTS `tweets`;
 CREATE TABLE IF NOT EXISTS `tweets` (
   `id_tweet` int(11) NOT NULL AUTO_INCREMENT,
   `usuario` tinytext NOT NULL,
@@ -55,7 +57,14 @@ CREATE TABLE IF NOT EXISTS `tweets` (
   `hashtag` tinytext,
   `permiso` tinytext,
   PRIMARY KEY (`id_tweet`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tweets`
+--
+
+INSERT INTO `tweets` (`id_tweet`, `usuario`, `fecha`, `texto`, `hashtag`, `permiso`) VALUES
+(7, 'Batres35', '2018-12-03 23:27:59', 'Buenos dias #Escuela $Batres35 como andan los viejones?', 'Escuela', 'Batres35');
 
 -- --------------------------------------------------------
 
@@ -63,16 +72,25 @@ CREATE TABLE IF NOT EXISTS `tweets` (
 -- Estructura de tabla para la tabla `usuarios`
 --
 
+DROP TABLE IF EXISTS `usuarios`;
 CREATE TABLE IF NOT EXISTS `usuarios` (
-  `idUsuarios` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `idUsuarios` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(50) DEFAULT NULL,
-  `Contrasena` varchar(20) DEFAULT NULL,
+  `Contrasena` tinytext,
   `Correo` varchar(50) DEFAULT NULL,
   `Usuario` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`idUsuarios`),
   UNIQUE KEY `Correo` (`Correo`),
   UNIQUE KEY `Usuario` (`Usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`idUsuarios`, `Nombre`, `Contrasena`, `Correo`, `Usuario`) VALUES
+(1, 'Batres35', 'ee640a05cc8e6aa05cac4e7702b5f30e', 'juanluis.batresjuare@live.com', 'Batres35');
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
