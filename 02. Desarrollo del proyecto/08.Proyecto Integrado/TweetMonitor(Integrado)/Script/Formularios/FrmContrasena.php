@@ -1,5 +1,5 @@
 <?php
-session_start();
+    session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +8,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Modificar Contraseña</title>
     <link rel="stylesheet" href="./../../css/bootstrap.min.css">
     <link rel="stylesheet" href="./../../css/bootstrap-theme.css">
     <link rel="stylesheet" href="./../../css/estilos.css">
@@ -68,21 +68,20 @@ session_start();
             </legend>
             <?php  
                 $Us = $_SESSION['Usuario'];
-                //require_once('../../conexion.php');
+
                 include_once "../Clases/MySQLConector.php";
                 $Mysql = new MySQLConector();
                 $Mysql->Conectar();
-                $consulta = "SELECT * FROM Usuarios where Usuario =  '$Us' limit 1;";
-                $Resultado = $Mysql->Consulta($consulta);
+                $Consulta = "SELECT * FROM Usuarios where Usuario =  '$Us' limit 1;";
+                $Resultado = $Mysql->Consulta($Consulta);
                 $Fila = mysqli_fetch_array($Resultado);
                 
-                $idUsuario = $Fila[0];
+                $IdUsuario = $Fila[0];
                 $Nombre = $Fila [1];
                 $Contrasena = $Fila[2];
                 $Correo = $Fila [3];
                 $Usuario = $Fila [4];
 
-                echo $Contrasena;
                 if (!isset($_POST['contrasena1']) && !isset($_POST['contrasena2'])) {                            
             ?>
             <form method="POST" action="./FrmContrasena.php" class="form-horizontal">
@@ -116,29 +115,28 @@ session_start();
                     </div>
                 </div>
             </form>
-    <?php 
-    } else {
-        $contrasena1 = $_POST['contrasena1'];
-        $contrasena2 = $_POST['contrasena2'];
-        if (($Contrasena == $contrasena1) && ($Contrasena == $contrasena2)) {
-            echo "<script language='javascript'>alert('No se registraron cambios')</script>";
-            echo "<script language='javascript'>window.location='../Formularios/FrmContrasena.php'</script>";
-        } else if ($contrasena1 == $contrasena2) {
-            include_once "../Clases/SQLControlador.php";
-            include_once "../Clases/Usuarios.php";
-            $SQLControlador = new SQLControlador();
+            <?php 
+                } else {
+                    $Contrasena1 = md5($_POST['contrasena1']);
+                    $Contrasena2 = md5($_POST['contrasena2']);
+                    if (($Contrasena == $Contrasena1) && ($Contrasena == $Contrasena2)) {
+                        echo "<script language='javascript'>alert('No se registraron cambios')</script>";
+                        echo "<script language='javascript'>window.location='../Formularios/FrmContrasena.php'</script>";
+                    } else if ($Contrasena1 == $Contrasena2) {
+                        include_once "../Clases/SQLControlador.php";
+                        include_once "../Clases/Usuarios.php";
+                        $SQLControlador = new SQLControlador();
 
-            $Usuarios = new Usuarios();
-            $Usuarios->setidUsuarios($idUsuario);
-            $Usuarios->setContrasena($contrasena1);
-                            //$Usuarios -> setContrasena(password_hash($contrasena1, PASSWORD_BCRYPT));
-            $SQLControlador->ModificarContrasena($Usuarios);
-        } else {
-            echo "<script language='javascript'>alert('Las contraseñas no coinciden')</script>";
-            echo "<script language='javascript'>window.location='../Formularios/FrmContrasena.php'</script>";
-        }
-    }
-    ?>
+                        $Usuarios = new Usuarios();
+                        $Usuarios->setidUsuarios($IdUsuario);
+                        $Usuarios->setContrasena($Contrasena1);
+                        $SQLControlador->ModificarContrasena($Usuarios);
+                    } else {
+                        echo "<script language='javascript'>alert('Las contraseñas no coinciden')</script>";
+                        echo "<script language='javascript'>window.location='../Formularios/FrmContrasena.php'</script>";
+                    }
+                }
+            ?>
         </fieldset>
     </div>
     </div>

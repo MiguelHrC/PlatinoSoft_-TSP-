@@ -1,5 +1,5 @@
 <?php
-session_start();
+    session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +8,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Perfil</title>
     <link rel="stylesheet" href="./../../css/bootstrap.min.css">
     <link rel="stylesheet" href="./../../css/bootstrap-theme.css">
     <link rel="stylesheet" href="./../../css/estilos.css">
@@ -71,17 +71,17 @@ session_start();
                     include_once "../Clases/MySQLConector.php";
                     $Mysql = new MySQLConector();
                     $Mysql->Conectar();
-                    $consulta = "SELECT * FROM Usuarios where Usuario =  '$Us' limit 1;";
-                    $Resultado = $Mysql->Consulta($consulta);
+                    $Consulta = "SELECT * FROM Usuarios where Usuario =  '$Us' limit 1;";
+                    $Resultado = $Mysql->Consulta($Consulta);
                     $Fila = mysqli_fetch_array($Resultado);
                     
-                    $idUsuario = $Fila[0];
+                    $IdUsuario = $Fila[0];
                     $Nombre = $Fila [1];
                     $Correo = $Fila [3];
                     $Usuario = $Fila [4];
                     
                         if (!isset($_POST['Nombre']) && !isset($_POST['Correo']) && !isset($_POST['Usuario'])) {                         
-                    ?>
+            ?>
             <form method="POST" action="./FrmPerfil.php" class="form-horizontal">
                 <div class="form-group">
                     <label class="col-xs-12 col-xs-offset-1" for="Nombre">
@@ -135,7 +135,7 @@ session_start();
                     include_once "../Clases/Usuarios.php";
                     
                     $Usuarios = new Usuarios();
-                    $Usuarios -> setidUsuarios($idUsuario);
+                    $Usuarios -> setidUsuarios($IdUsuario);
                     $Usuarios -> setNombre($Nombrem);
                     $Usuarios -> setCorreo($Correom);
                     $Usuarios -> setUsuario($Usuario);

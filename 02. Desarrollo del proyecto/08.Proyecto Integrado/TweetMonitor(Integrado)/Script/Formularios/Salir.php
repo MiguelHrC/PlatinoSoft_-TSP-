@@ -7,5 +7,4 @@ if (isset($_SESSION)){
     unset ($_SESSION['Usuario']);
     session_destroy();
 }
-
 echo "<script language='javascript'>window.location='../../index.php'</script>";

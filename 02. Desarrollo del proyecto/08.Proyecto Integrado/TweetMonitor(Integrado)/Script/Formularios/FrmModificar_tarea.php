@@ -1,3 +1,6 @@
+<?php
+	session_start();
+?>
 <!DOCTYPE html>
 <html>
 
@@ -6,7 +9,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Document</title>
+	<title>Modificar Tarea</title>
 	<link rel="stylesheet" href="./../../css/bootstrap.min.css">
 	<link rel="stylesheet" href="./../../css/bootstrap-theme.css">
 	<link rel="stylesheet" href="./../../css/estilos.css">
@@ -74,9 +77,9 @@ if (!isset($_GET['tarea']) && !isset($_GET['id_usuario']) && !isset($_GET['usuar
 	include_once "../Clases/MySQLConector.php";
 	$Mysql = new MySQLConector();
 	$Mysql->Conectar();
-	$consulta = "SELECT * FROM tareas WHERE id_tarea = " . $_GET['id_tarea'] . ";";
-	$Resultado = $Mysql->Consulta($consulta);
-	$row = $Resultado->fetch_array(MYSQLI_ASSOC);
+	$Consulta = "SELECT * FROM tareas WHERE id_tarea = " . $_GET['id_tarea'] . ";";
+	$Resultado = $Mysql->Consulta($Consulta);
+	$Row = $Resultado->fetch_array(MYSQLI_ASSOC);
 	$Mysql->CerrarConexion();
 	?>
 	<form action="FrmModificar_tarea.php" method="get">
@@ -88,7 +91,7 @@ if (!isset($_GET['tarea']) && !isset($_GET['id_usuario']) && !isset($_GET['usuar
 		</label>
 		
 		<div class="col-xs-5 col-xs-offset-1">
-			<input type="text" name="tarea" maxlength="20" class="form-control Input" value='<?php echo $row['tarea'] ?>' required><br>
+			<input type="text" name="tarea" maxlength="20" class="form-control Input" value='<?php echo $Row['tarea'] ?>' required><br>
 		</div>
 
 		<input type="hidden" name="id_usuario" value=<?php echo "'" . $_SESSION['IdUsuario'] . "'" ?> required><br>
@@ -99,27 +102,27 @@ if (!isset($_GET['tarea']) && !isset($_GET['id_usuario']) && !isset($_GET['usuar
 
 		<div class="col-xs-5 col-xs-offset-1">
 			<select class="form-control" name="usuario_twitter" id="sel1">
-		<?php
-	include_once "../Clases/MySQLConector.php";
+			<?php
+				include_once "../Clases/MySQLConector.php";
 
-	$Mysql = new MySQLConector();
-	$Mysql->Conectar();
+				$Mysql = new MySQLConector();
+				$Mysql->Conectar();
 
-	$consulta = "SELECT DISTINCT usuario FROM `tweets` where permiso LIKE '" . $_SESSION['Usuario'] . "';";
-	$Resultado2 = $Mysql->Consulta($consulta);
+				$Consulta = "SELECT DISTINCT usuario FROM `tweets` where permiso LIKE '" . $_SESSION['Usuario'] . "';";
+				$Resultado2 = $Mysql->Consulta($Consulta);
 
-	if ($Resultado->num_rows > 0) {
-		while ($row2 = $Resultado2->fetch_array(MYSQLI_ASSOC)) {
-			if ($row2['usuario'] == $row['usuario_twitter']) {
-				echo "<option selected='true'>" . $row2['usuario'] . "</option>";
-			} else {
-				echo "<option>" . $row2['usuario'] . "</option>";
-			}
+				if ($Resultado->num_rows > 0) {
+					while ($Row2 = $Resultado2->fetch_array(MYSQLI_ASSOC)) {
+						if ($Row2['usuario'] == $Row['usuario_twitter']) {
+							echo "<option selected='true'>" . $Row2['usuario'] . "</option>";
+						} else {
+							echo "<option>" . $Row2['usuario'] . "</option>";
+						}
 
-		}
-	}
-	$Mysql->CerrarConexion();
-	?>
+					}
+				}
+				$Mysql->CerrarConexion();
+			?>
 			</select>
 		</div>
 		
@@ -128,7 +131,7 @@ if (!isset($_GET['tarea']) && !isset($_GET['id_usuario']) && !isset($_GET['usuar
 		</label>
 
 		<div class="col-xs-5 col-xs-offset-1">
-			<input type="text" name="hashtag" class="form-control Input" value='<?php echo $row['hashtag'] ?>' required><br>
+			<input type="text" name="hashtag" class="form-control Input" value='<?php echo $Row['hashtag'] ?>' required><br>
 		</div>
 		
 		<label class="col-xs-12 col-xs-offset-1" for="Nombre">
@@ -137,25 +140,25 @@ if (!isset($_GET['tarea']) && !isset($_GET['id_usuario']) && !isset($_GET['usuar
 		
 		<div class="col-xs-5 col-xs-offset-1 ">
 			<select name="dia_inicio" class="form-control Input">
-				<option <?php if ($row['dia_inicio'] == 1) {
+				<option <?php if ($Row['dia_inicio'] == 1) {
 												echo "selected='true'";
 											} ?> value="1">Lunes</option>
-				<option <?php if ($row['dia_inicio'] == 2) {
+				<option <?php if ($Row['dia_inicio'] == 2) {
 												echo "selected='true'";
 											} ?> value="2">Martes</option>
-				<option <?php if ($row['dia_inicio'] == 3) {
+				<option <?php if ($Row['dia_inicio'] == 3) {
 												echo "selected='true'";
 											} ?> value="3">Miercoles</option>
-				<option <?php if ($row['dia_inicio'] == 4) {
+				<option <?php if ($Row['dia_inicio'] == 4) {
 												echo "selected='true'";
 											} ?> value="4">Jueves</option>
-				<option <?php if ($row['dia_inicio'] == 5) {
+				<option <?php if ($Row['dia_inicio'] == 5) {
 												echo "selected='true'";
 											} ?> value="5">Viernes</option>
-				<option <?php if ($row['dia_inicio'] == 6) {
+				<option <?php if ($Row['dia_inicio'] == 6) {
 												echo "selected='true'";
 											} ?> value="6">Sabado</option>
-				<option <?php if ($row['dia_inicio'] == 7) {
+				<option <?php if ($Row['dia_inicio'] == 7) {
 												echo "selected='true'";
 											} ?> value="7">Domingo</option>
 			</select><br>
@@ -167,25 +170,25 @@ if (!isset($_GET['tarea']) && !isset($_GET['id_usuario']) && !isset($_GET['usuar
 		
 		<div class="col-xs-5 col-xs-offset-1">
 			<select name="dia_fin" class="form-control Input"	>
-				<option <?php if ($row['dia_fin'] == 1) {
+				<option <?php if ($Row['dia_fin'] == 1) {
 												echo "selected='true'";
 											} ?> value="1">Lunes</option>
-				<option <?php if ($row['dia_fin'] == 2) {
+				<option <?php if ($Row['dia_fin'] == 2) {
 												echo "selected='true'";
 											} ?> value="2">Martes</option>
-				<option <?php if ($row['dia_fin'] == 3) {
+				<option <?php if ($Row['dia_fin'] == 3) {
 												echo "selected='true'";
 											} ?> value="3">Miercoles</option>
-				<option <?php if ($row['dia_fin'] == 4) {
+				<option <?php if ($Row['dia_fin'] == 4) {
 												echo "selected='true'";
 											} ?> value="4">Jueves</option>
-				<option <?php if ($row['dia_fin'] == 5) {
+				<option <?php if ($Row['dia_fin'] == 5) {
 												echo "selected='true'";
 											} ?> value="5">Viernes</option>
-				<option <?php if ($row['dia_fin'] == 6) {
+				<option <?php if ($Row['dia_fin'] == 6) {
 												echo "selected='true'";
 											} ?> value="6">Sabado</option>
-				<option <?php if ($row['dia_fin'] == 7) {
+				<option <?php if ($Row['dia_fin'] == 7) {
 												echo "selected='true'";
 											} ?> value="7">Domingo</option>
 			</select><br>
@@ -196,7 +199,7 @@ if (!isset($_GET['tarea']) && !isset($_GET['id_usuario']) && !isset($_GET['usuar
 		</label>
 		
 		<div class="col-xs-5 col-xs-offset-1">
-			<input type="number" name="hora_inicio" min="0" max="23"class="form-control Input" value="<?php echo $row['hora_inicio'] ?>"><br>
+			<input type="number" name="hora_inicio" min="0" max="23"class="form-control Input" value="<?php echo $Row['hora_inicio'] ?>"><br>
 		</div>
 		
 		<label class="col-xs-12 col-xs-offset-1" for="Nombre">
@@ -204,41 +207,40 @@ if (!isset($_GET['tarea']) && !isset($_GET['id_usuario']) && !isset($_GET['usuar
 		</label>
 
 		<div class="col-xs-5 col-xs-offset-1">
-			<input type="number" name="hora_fin" min="0" max="23" class="form-control Input" value="<?php echo $row['hora_fin'] ?>"><br>
+			<input type="number" name="hora_fin" min="0" max="23" class="form-control Input" value="<?php echo $Row['hora_fin'] ?>"><br>
 			<button type="submit" class="btn btn-success glyphicon glyphicon-pencil"> Modificar tarea</button>
 		</div>	
 	</form>
-<?php
+	<?php
+		} else {
+			$Id_Tarea = $_GET['id_tarea'];
+			$Tarea = $_GET['tarea'];
+			$Id_Usuario = $_GET['id_usuario'];
+			$Usuario_Twitter = $_GET['usuario_twitter'];
+			$Hashtag = $_GET['hashtag'];
+			$Dia_Inicio = $_GET['dia_inicio'];
+			$Dia_Fin = $_GET['dia_fin'];
+			$Hora_Inicio = $_GET['hora_inicio'];
+			$Hora_Fin = $_GET['hora_fin'];
 
-} else {
-	$id_tarea = $_GET['id_tarea'];
-	$tarea = $_GET['tarea'];
-	$id_usuario = $_GET['id_usuario'];
-	$usuario_twitter = $_GET['usuario_twitter'];
-	$hashtag = $_GET['hashtag'];
-	$dia_inicio = $_GET['dia_inicio'];
-	$dia_fin = $_GET['dia_fin'];
-	$hora_inicio = $_GET['hora_inicio'];
-	$hora_fin = $_GET['hora_fin'];
+			include_once "../Clases/SQLControlador.php";
+			include_once "../Clases/Tareas.php";
 
-	include_once "../Clases/SQLControlador.php";
-	include_once "../Clases/Tareas.php";
+			$Tareas = new Tareas();
+			$Tareas->setidTarea($Id_Tarea);
+			$Tareas->setTarea($Tarea);
+			$Tareas->setidUsuario($Id_Usuario);
+			$Tareas->setUsuario_Tweeter($Usuario_Twitter);
+			$Tareas->setHastag($Hashtag);
+			$Tareas->setDia_inicio($Dia_Inicio);
+			$Tareas->setDia_Fin($Dia_Fin);
+			$Tareas->setHora_Inicio($Hora_Inicio);
+			$Tareas->setHora_Fin($Hora_Fin);
 
-	$Tareas = new Tareas();
-	$Tareas->setidTarea($id_tarea);
-	$Tareas->setTarea($tarea);
-	$Tareas->setidUsuario($id_usuario);
-	$Tareas->setUsuario_Tweeter($usuario_twitter);
-	$Tareas->setHastag($hashtag);
-	$Tareas->setDia_inicio($dia_inicio);
-	$Tareas->setDia_Fin($dia_fin);
-	$Tareas->setHora_Inicio($hora_inicio);
-	$Tareas->setHora_Fin($hora_fin);
-
-	$SQLControlador = new SQLControlador();
-	$SQLControlador->ModificarTarea($Tareas);
-}
-?>
+			$SQLControlador = new SQLControlador();
+			$SQLControlador->ModificarTarea($Tareas);
+		}
+	?>
 </body>
 
 </html>

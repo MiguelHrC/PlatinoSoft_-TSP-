@@ -1,5 +1,4 @@
 <?php
-
 include_once "MySQLConector.php";
 include_once "Usuarios.php";
 include_once "Tareas.php";
@@ -15,12 +14,11 @@ class SQLControlador
 	{
 		$Mysql = new MySQLConector();
 		$Mysql->Conectar();
-		$consulta = "SELECT * FROM usuarios WHERE Usuario = '" . $Usuarios->getUsuario() . "';";
-		$Resultado = $Mysql->Consulta($consulta);
-		$tupla = mysqli_fetch_array($Resultado);
+		$Consulta = "SELECT * FROM usuarios WHERE Usuario = '" . $Usuarios->getUsuario() . "';";
+		$Resultado = $Mysql->Consulta($Consulta);
+		$Tupla = mysqli_fetch_array($Resultado);
 
-		//if (password_verify($Usuarios->getContrasena(), $tupla['Contrasena'])){
-		if ($Usuarios->getContrasena() == $tupla['Contrasena']) {
+		if ($Usuarios->getContrasena() == $Tupla['Contrasena']) {
 			return true;
 		} else {
 			return false;
@@ -32,8 +30,8 @@ class SQLControlador
 	{
 		$Mysql = new MySQLConector();
 		$Mysql->Conectar();
-		$consulta = "SELECT * FROM usuarios WHERE Usuario = '" . $Usuarios->getUsuario() . "';";
-		$Resultado = $Mysql->Consulta($consulta);
+		$Consulta = "SELECT * FROM usuarios WHERE Usuario = '" . $Usuarios->getUsuario() . "';";
+		$Resultado = $Mysql->Consulta($Consulta);
 		$tupla = mysqli_fetch_array($Resultado);
 
 		if (isset($tupla['idUsuarios'])) {
@@ -58,13 +56,13 @@ class SQLControlador
 			echo "<script language='javascript'>alert('El corrreo " . $Usuarios->getCorreo() . " y el usuario " . $Usuarios->getUsuario() . " ya se encuentran registrados')</script>";
 			echo "<script language='javascript'>window.location='../Formularios/FrmRegistrarUsuario.php'</script>";			
 		}else if ($ResCo->num_rows == 1){
-			echo "<script language='javascript'>alert('El corrreo " . $Usuarios->getCorreo() . " ya se encuentra registro')</script>";
+			echo "<script language='javascript'>alert('El corrreo " . $Usuarios->getCorreo() . " ya se encuentra registrado')</script>";
 			echo "<script language='javascript'>window.location='../Formularios/FrmRegistrarUsuario.php'</script>";			
 		}else if ($ResUs->num_rows == 1) {
 			echo "<script language='javascript'>alert('El usuario " . $Usuarios->getUsuario() . " ya se encuentra registrado')</script>";
 			echo "<script language='javascript'>window.location='../Formularios/FrmRegistrarUsuario.php'</script>";			
 		} else {
-			$consulta = "INSERT INTO Usuarios (idUsuarios, Nombre, Contrasena, Correo, Usuario)
+			$Consulta = "INSERT INTO Usuarios (idUsuarios, Nombre, Contrasena, Correo, Usuario)
 			VALUES (
 			null,
 			'" .
@@ -76,7 +74,7 @@ class SQLControlador
 			echo "<script language='javascript'>alert('¡Registro completado con éxito!')</script>";
 			echo "<script language='javascript'>window.location='../Formularios/FrmLogin.php'</script>";			
 		}
-		$Resultado = $Mysql->Consulta($consulta);
+		$Resultado = $Mysql->Consulta($Consulta);
 		$Mysql->CerrarConexion();
 	}
 
@@ -84,22 +82,46 @@ class SQLControlador
 	{
 		$Mysql = new MySQLConector();
 		$Mysql->Conectar();
-		$ConsultaCorreo = "SELECT * FROM usuarios WHERE Correo = '" . $Usuarios->getCorreo() . "';";
-		$ResCo = $Mysql->Consulta($ConsultaCorreo);
-		if ($ResCo->num_rows == 1) {
-			echo "<script language='javascript'>alert('El corrreo " . $Usuarios->getCorreo() . " ya se encuentra registro')</script>";
-			echo "<script language='javascript'>window.location='../Formularios/FrmPerfil.php'</script>";
-		} else {
-			$consulta = "UPDATE usuarios Set  
-			Nombre = '" . $Usuarios->getNombre() . "', 
-			Correo = '" . $Usuarios->getCorreo() . "',  
-			Usuario = '" . $Usuarios->getUsuario() . "' Where idUsuarios = " . $Usuarios->getidUsuarios() . ";";
-			if ($Mysql->Consulta($consulta) === true) {
-				echo "<script language='javascript'>alert('Modificacion exitosa')</script>";
-				echo "<script language='javascript'>window.location='../Formularios/FrmPerfil.php'</script>";
+		$ConsultaCorreoPropio = "SELECT * FROM usuarios WHERE Correo = '" . $Usuarios->getCorreo() . "' and Usuario='" . $Usuarios->getUsuario() . "';";
+			$Propio = $Mysql->Consulta($ConsultaCorreoPropio);
+			if ($Propio->num_rows == 1) {
+				echo "<script language='javascript'>alert('No se encontraron modificaciones')</script>";
+			}else{
+				
+				$MailCorrecto="SELECT Correo FROM usuarios WHERE idUsuarios = " . $Usuarios->getidUsuarios() . ";";
+				$Mail=$Mysql->Consulta($MailCorrecto);
+				if ($Row = mysqli_fetch_array($Mail)) {
+					$Var = $Row["Correo"];
+				}
+				$ConsultaTodosCorreos = "SELECT Correo FROM usuarios WHERE Correo!='$Var';";
+				$Realizar= $Mysql->Consulta($ConsultaTodosCorreos);
+				$Verificar=0;
+
+				while ($fila = mysqli_fetch_array($Realizar)) {
+					if($Usuarios->getCorreo()==$fila['Correo']){
+						$Verificar=$Verificar+1;
+					}else{
+						$Verificar=$Verificar+0;
+					}
+				}
+				if($Verificar==0){
+					$Consulta = "UPDATE usuarios Set  
+					Nombre = '" . $Usuarios->getNombre() . "', 
+					Correo = '" . $Usuarios->getCorreo() . "',  
+					Usuario = '" . $Usuarios->getUsuario() . "' Where idUsuarios = " . $Usuarios->getidUsuarios() . ";";
+					if ($Mysql->Consulta($Consulta) == true) {
+						echo "<script language='javascript'>alert('Modificación exitosa')</script>";
+						echo "<script language='javascript'>window.location='../Formularios/FrmPerfil.php'</script>";
+						$Resultado = $Mysql->Consulta($Consulta);
+					}else{
+						echo "<script language='javascript'>alert('Modificación incorrecta')</script>";
+					}
+				
+				}else {
+					echo "<script language='javascript'>alert('El correo esta en uso')</script>";	
+					echo "<script language='javascript'>window.location='../Formularios/FrmPerfil.php'</script>";
+				}
 			}
-			$Resultado = $Mysql->Consulta($consulta);
-		}
 		$Mysql->CerrarConexion();
 	}
 
@@ -107,13 +129,13 @@ class SQLControlador
 	{
 		$Mysql = new MySQLConector();
 		$Mysql->Conectar();
-		$consulta = "UPDATE usuarios Set  
+		$Consulta = "UPDATE usuarios Set  
 			Contrasena = '" . $Usuarios->getContrasena() . "' Where idUsuarios = " . $Usuarios->getidUsuarios() . ";";
-		if ($Mysql->Consulta($consulta) === true) {
-			echo "<script language='javascript'>alert('Modificacion exitosa')</script>";
+		if ($Mysql->Consulta($Consulta) === true) {
+			echo "<script language='javascript'>alert('Modificación exitosa')</script>";
 			echo "<script language='javascript'>window.location='../Formularios/FrmLogin.php'</script>";
 		}
-		$Resultado = $Mysql->Consulta($consulta);
+		$Resultado = $Mysql->Consulta($Consulta);
 		$Mysql->CerrarConexion();
 	}
 
@@ -121,7 +143,7 @@ class SQLControlador
 	{
 		$Mysql = new MySQLConector();
 		$Mysql->Conectar();
-		$consulta = "UPDATE tareas Set
+		$Consulta = "UPDATE tareas Set
 			id_tarea = '" . $Tareas->getidTarea() . "', 
 			tarea = '" . $Tareas->getTarea() . "', 
 			id_usuario = '" . $Tareas->getidUsuario() . "',  
@@ -132,13 +154,13 @@ class SQLControlador
 			hora_inicio = '" . $Tareas->getHora_Inicio() . "', 
 			hora_fin = '" . $Tareas->getHora_Fin() . "'
 			Where id_tarea = " . $Tareas->getidTarea() . ";";
-		if ($Mysql->Consulta($consulta) === true) {
-			echo "<script language='javascript'>alert('Tarea modificada con exito')</script>";
+		if ($Mysql->Consulta($Consulta) === true) {
+			echo "<script language='javascript'>alert('Tarea modificada con éxito')</script>";
 			echo "<script language='javascript'>window.location = 'FrmConsultar_tareas.php'</script>";
 		} else {
-			echo "Error en la consulta: " . $consulta . "\n Error: " . $Mysql->error;
+			echo "Error en la consulta: " . $Consulta . "\n Error: " . $Mysql->error;
 		}
-		$Resultado = $Mysql->Consulta($consulta);
+		$Resultado = $Mysql->Consulta($Consulta);
 		$Mysql->CerrarConexion();
 	}
 
@@ -148,7 +170,7 @@ class SQLControlador
 		$Mysql = new MySQLConector();
 		$Mysql->Conectar();
 
-		$consulta = "INSERT INTO tareas (tarea, id_usuario, usuario_twitter, hashtag, dia_inicio, dia_fin, hora_inicio, hora_fin) 
+		$Consulta = "INSERT INTO tareas (tarea, id_usuario, usuario_twitter, hashtag, dia_inicio, dia_fin, hora_inicio, hora_fin) 
 		VALUES (
 		'" .
 			$Tareas->getTarea() . "','" .
@@ -160,12 +182,11 @@ class SQLControlador
 			$Tareas->getHora_Inicio() . "','" .
 			$Tareas->getHora_Fin() .
 			"');";
-		if ($Mysql->Consulta($consulta) === true) {
-			//echo "Tarea agregada exitosamente!";
+		if ($Mysql->Consulta($Consulta) === true) {
 			echo "<script language='javascript'>alert('Tarea agregada exitosamente!')</script>";
 			echo "<script language='javascript'>window.location = 'FrmAgregar_tarea.php'</script>";
 		} else {
-			echo "Error en la consulta: " . $consulta . "\n Error: " . $Mysql->error;
+			echo "Error en la consulta: " . $Consulta . "\n Error: " . $Mysql->error;
 		}
 		$Mysql->CerrarConexion();
 	}

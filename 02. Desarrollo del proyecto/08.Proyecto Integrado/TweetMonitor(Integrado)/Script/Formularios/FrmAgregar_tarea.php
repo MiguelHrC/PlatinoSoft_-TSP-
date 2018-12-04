@@ -1,5 +1,5 @@
 <?php
-session_start();
+	session_start();
 ?>
 <!DOCTYPE html>
 <html>
@@ -180,33 +180,32 @@ if (!isset($_GET['tarea']) && !isset($_GET['id_usuario']) && !isset($_GET['usuar
 		</div>
 	</article>
 	<?php
+		} else {
+			$Tarea = $_GET['tarea'];
+			$Id_Usuario = $_GET['id_usuario'];
+			$Usuario_Twitter = $_GET['usuario_twitter'];
+			$Hashtag = $_GET['hashtag'];
+			$Dia_Inicio = $_GET['dia_inicio'];
+			$Dia_Fin = $_GET['dia_fin'];
+			$Hora_Inicio = $_GET['hora_inicio'];
+			$Hora_Fin = $_GET['hora_fin'];
 
-} else {
-	$tarea = $_GET['tarea'];
-	$id_usuario = $_GET['id_usuario'];
-	$usuario_twitter = $_GET['usuario_twitter'];
-	$hashtag = $_GET['hashtag'];
-	$dia_inicio = $_GET['dia_inicio'];
-	$dia_fin = $_GET['dia_fin'];
-	$hora_inicio = $_GET['hora_inicio'];
-	$hora_fin = $_GET['hora_fin'];
+			include_once "../Clases/SQLControlador.php";
+			include_once "../Clases/Tareas.php";
 
-	include_once "../Clases/SQLControlador.php";
-	include_once "../Clases/Tareas.php";
+			$Tareas = new Tareas();
+			$Tareas->setTarea($Tarea);
+			$Tareas->setidUsuario($Id_Usuario);
+			$Tareas->setUsuario_Tweeter($Usuario_Twitter);
+			$Tareas->setHastag($Hashtag);
+			$Tareas->setDia_inicio($Dia_Inicio);
+			$Tareas->setDia_Fin($Dia_Fin);
+			$Tareas->setHora_Inicio($Hora_Inicio);
+			$Tareas->setHora_Fin($Hora_Fin);
 
-	$Tareas = new Tareas();
-	$Tareas->setTarea($tarea);
-	$Tareas->setidUsuario($id_usuario);
-	$Tareas->setUsuario_Tweeter($usuario_twitter);
-	$Tareas->setHastag($hashtag);
-	$Tareas->setDia_inicio($dia_inicio);
-	$Tareas->setDia_Fin($dia_fin);
-	$Tareas->setHora_Inicio($hora_inicio);
-	$Tareas->setHora_Fin($hora_fin);
-
-	$SQLControlador = new SQLControlador();
-	$SQLControlador->AgregarTarea($Tareas);
-}
-?>
+			$SQLControlador = new SQLControlador();
+			$SQLControlador->AgregarTarea($Tareas);
+		}
+	?>
 </body>
 </html>

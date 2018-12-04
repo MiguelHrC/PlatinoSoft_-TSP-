@@ -80,13 +80,13 @@ if (!isset($_SESSION)) {
 			$Mysql = new MySQLConector();
 			$Mysql->Conectar();
 
-			$consulta = "SELECT * FROM tareas WHERE id_usuario = " . $_SESSION['IdUsuario'] . ";";
+			$Consulta = "SELECT * FROM tareas WHERE id_usuario = " . $_SESSION['IdUsuario'] . ";";
 
-			$Resultado = $Mysql->Consulta($consulta);
+			$Resultado = $Mysql->Consulta($Consulta);
 
 			if ($Resultado->num_rows > 0) {
-				while ($row = $Resultado->fetch_array(MYSQLI_ASSOC)) {
-					echo "<option value='" . $row['id_tarea'] . "'>" . $row['tarea'] . " - " . $row['usuario_twitter'] . "</option>\n";
+				while ($Row = $Resultado->fetch_array(MYSQLI_ASSOC)) {
+					echo "<option value='" . $Row['id_tarea'] . "'>" . $Row['tarea'] . " - " . $Row['usuario_twitter'] . "</option>\n";
 				}
 			}
 			?>
@@ -98,73 +98,73 @@ if (!isset($_SESSION)) {
 	</form>
 	<br>
 	<?php
-include_once "../Clases/MySQLConector.php";
-include_once "../Clases/Tareas.php";
-$Mysql = new MySQLConector();
-$Mysql->Conectar();
-if (isset($_GET['id_tarea'])) {
-	$consulta = "SELECT * FROM tareas WHERE id_tarea = " . $_GET['id_tarea'] . ";";
-	$Resultado = $Mysql->Consulta($consulta);
-	$row = $Resultado->fetch_array(MYSQLI_ASSOC);
+		include_once "../Clases/MySQLConector.php";
+		include_once "../Clases/Tareas.php";
+		$Mysql = new MySQLConector();
+		$Mysql->Conectar();
+		if (isset($_GET['id_tarea'])) {
+			$Consulta = "SELECT * FROM tareas WHERE id_tarea = " . $_GET['id_tarea'] . ";";
+			$Resultado = $Mysql->Consulta($Consulta);
+			$Row = $Resultado->fetch_array(MYSQLI_ASSOC);
 
-	$usuario = $row['usuario_twitter'];
-	$hashtag = $row['hashtag'];
-	$dia_inicio = $row['dia_inicio'];
-	$dia_fin = $row['dia_fin'];
-	$hora_inicio = $row['hora_inicio'];
-	$hora_fin = $row['hora_fin'];
+			$Usuario = $Row['usuario_twitter'];
+			$Hashtag = $Row['hashtag'];
+			$Dia_Inicio = $Row['dia_inicio'];
+			$Dia_Fin = $Row['dia_fin'];
+			$Hora_Inicio = $Row['hora_inicio'];
+			$Hora_Fin = $Row['hora_fin'];
 
-	echo "<div class='comments-container'>";
-	echo "<h1>Itinerario <a href='#'>TweetMonitor</a></h1>";
+			echo "<div class='comments-container'>";
+			echo "<h1>Itinerario <a href='#'>TweetMonitor</a></h1>";
 
-	$consulta = "SELECT usuario, fecha, texto, hashtag FROM `tweets` WHERE hashtag LIKE '$hashtag' and usuario LIKE '$usuario' AND permiso LIKE '" . $_SESSION['Usuario'] . "' ORDER BY fecha DESC;";
-	$Resultado = $Mysql->Consulta($consulta);
-	if ($Resultado->num_rows > 0) {
-		while ($row = $Resultado->fetch_array(MYSQLI_ASSOC)) {
-			echo "<ul id='comments-list' class='comments-list'>";
-			echo "<li>";
-			echo "<div class='comments-main-level'>";
-			echo "<!--Avatar-->";
-			echo "<div class='comment-avatar'><img src='../../imagenes/1.jpg' width='60' height='60'></div>";
-			echo "<!--Contenedor del comentario-->";
-			echo "<div class='comments-box'>";
-			echo "<div class='comment-head'>";
-			echo "<h6 class='comment-name by-author'><a href='#'> " . $row['usuario'] . " </a> </h6>";
-			echo "<span>" . date('d-m-Y H:i', strtotime($row['fecha'])) . "</span>";
-			echo "<i></i>";
+			$consulta = "SELECT usuario, fecha, texto, hashtag FROM `tweets` WHERE hashtag LIKE '$Hashtag' and usuario LIKE '$Usuario' AND permiso LIKE '" . $_SESSION['Usuario'] . "' ORDER BY fecha DESC;";
+			$Resultado = $Mysql->Consulta($consulta);
+			if ($Resultado->num_rows > 0) {
+				while ($Row = $Resultado->fetch_array(MYSQLI_ASSOC)) {
+					echo "<ul id='comments-list' class='comments-list'>";
+					echo "<li>";
+					echo "<div class='comments-main-level'>";
+					echo "<!--Avatar-->";
+					echo "<div class='comment-avatar'><img src='../../imagenes/1.jpg' width='60' height='60'></div>";
+					echo "<!--Contenedor del comentario-->";
+					echo "<div class='comments-box'>";
+					echo "<div class='comment-head'>";
+					echo "<h6 class='comment-name by-author'><a href='#'> " . $Row['usuario'] . " </a> </h6>";
+					echo "<span>" . date('d-m-Y H:i', strtotime($Row['fecha'])) . "</span>";
+					echo "<i></i>";
+					echo "</div>";
+					echo "<div class='comment-content'>";
+					echo "" . $Row['texto'] . "<br>";
+					echo "" . ObtenerComentario($Row['fecha'], $Dia_Inicio, $Dia_Fin, $Hora_Inicio, $Hora_Fin) . "";
+					echo "</div>";
+					echo "</div>";
+					echo "</div>";
+					echo "</li>";
+					echo "</ul>";
+				}
+			}
+			$Mysql->CerrarConexion();
 			echo "</div>";
-			echo "<div class='comment-content'>";
-			echo "" . $row['texto'] . "<br>";
-			echo "" . ObtenerComentario($row['fecha'], $dia_inicio, $dia_fin, $hora_inicio, $hora_fin) . "";
-			echo "</div>";
-			echo "</div>";
-			echo "</div>";
-			echo "</li>";
-			echo "</ul>";
 		}
-	}
-	$Mysql->CerrarConexion();
-	echo "</div>";
-}
 
-function ObtenerComentario($fecha, $dia_inicio, $dia_fin, $hora_inicio, $hora_fin)
-{
-	$date = date(strtotime($fecha));
-	if (date('N', $date) >= $dia_inicio && date('N', $date) <= $dia_fin) {
-		if (date('H', $date) >= $hora_inicio && date('H', $date) <= $hora_fin) {
-			return "Correcto";
-		} else {
-			return "Comportamiento Extraño: Hora";
+		function ObtenerComentario($Fecha, $Dia_Inicio, $Dia_Fin, $Hora_Inicio, $Hora_Fin)
+		{
+			$Date = date(strtotime($Fecha));
+			if (date('N', $Date) >= $Dia_Inicio && date('N', $Date) <= $Dia_Fin) {
+				if (date('H', $Date) >= $Hora_Inicio && date('H', $Date) <= $Hora_Fin) {
+					return "Comportamiento Normal";
+				} else {
+					return "Comportamiento Extraño: Hora";
+				}
+			} else {
+				if (date('H', $Date) >= $Hora_Inicio && date('H', $Date) <= $Hora_Fin) {
+					return "Comportamiento Extraño: Dia";
+				} else {
+					return "Comportamiento Extraño: Dia y Hora";
+				}
+			}
 		}
-	} else {
-		if (date('H', $date) >= $hora_inicio && date('H', $date) <= $hora_fin) {
-			return "Comportamiento Extraño: Dia";
-		} else {
-			return "Comportamiento Extraño: Dia y Hora";
-		}
-	}
-}
-?>
+	?>
 </body>
 
 </html>

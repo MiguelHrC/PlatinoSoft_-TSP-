@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -175,7 +178,7 @@
         $Nombre = $_POST['Nombre'];
         $Correo = $_POST['Correo'];
         $Usuario = $_POST['Usuario'];
-        $Contrasena = $_POST['Contrasena'];
+        $Contrasena = md5($_POST['Contrasena']);
         //$Contrasena = password_hash($_POST['Contrasena'], PASSWORD_BCRYPT); 
 
         include_once "../Clases/SQLControlador.php";

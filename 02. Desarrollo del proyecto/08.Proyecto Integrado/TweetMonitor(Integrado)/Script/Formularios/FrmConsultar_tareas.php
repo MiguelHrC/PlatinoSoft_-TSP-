@@ -87,22 +87,22 @@ session_start();
 			$Mysql = new MySQLConector();
 			$Mysql->Conectar();
 
-			$consulta = "SELECT * FROM tareas WHERE id_usuario = ".$_SESSION['IdUsuario'].";";
-			$Resultado = $Mysql->Consulta($consulta);
+			$Consulta = "SELECT * FROM tareas WHERE id_usuario = ".$_SESSION['IdUsuario'].";";
+			$Resultado = $Mysql->Consulta($Consulta);
 
 			if ($Resultado->num_rows > 0) {
-				while ($row = $Resultado->fetch_array(MYSQLI_ASSOC)) {
+				while ($Row = $Resultado->fetch_array(MYSQLI_ASSOC)) {
 					echo "<tr>";
-					echo "<td>" . $row['tarea'] . "</td>";
-					echo "<td>" . $row['usuario_twitter'] . "</td>";
-					echo "<td>" . $row['hashtag'] . "</td>";
-					echo "<td>" . NumeroADia($row['dia_inicio']) . "</td>";
-					echo "<td>" . NumeroADia($row['dia_fin']) . "</td>";
-					echo "<td>" . $row['hora_inicio'] . "</td>";
-					echo "<td>" . $row['hora_fin'] . "</td>";
+					echo "<td>" . $Row['tarea'] . "</td>";
+					echo "<td>" . $Row['usuario_twitter'] . "</td>";
+					echo "<td>" . $Row['hashtag'] . "</td>";
+					echo "<td>" . NumeroADia($Row['dia_inicio']) . "</td>";
+					echo "<td>" . NumeroADia($Row['dia_fin']) . "</td>";
+					echo "<td>" . $Row['hora_inicio'] . "</td>";
+					echo "<td>" . $Row['hora_fin'] . "</td>";
 					echo "<td>";
-					echo "<a href='FrmModificar_tarea.php?id_tarea=" . $row['id_tarea'] . "' class='btn btn-primary glyphicon glyphicon-pencil'></a>";
-					echo "	<a href='./eliminar_tarea.php?id_tarea=" . $row['id_tarea'] . "' class='btn btn-danger glyphicon glyphicon-minus'></a>";
+					echo "<a href='FrmModificar_tarea.php?id_tarea=" . $Row['id_tarea'] . "' class='btn btn-primary glyphicon glyphicon-pencil'></a>";
+					echo "	<a href='./eliminar_tarea.php?id_tarea=" . $Row['id_tarea'] . "' class='btn btn-danger glyphicon glyphicon-minus'></a>";
 					echo "</td>";
 					echo "</tr>";
 				}
@@ -112,36 +112,36 @@ session_start();
 			echo "</table>";
 			echo "</div>";
 
-			function NumeroADia($num)
+			function NumeroADia($Num)
 			{
-				$dia = "";
-				switch ($num) {
+				$Dia = "";
+				switch ($Num) {
 					case '1':
-						$dia = "Lunes";
+						$Dia = "Lunes";
 						break;
 					case '2':
-						$dia = "Martes";
+						$Dia = "Martes";
 						break;
 					case '3':
-						$dia = "Miercoles";
+						$Dia = "Miercoles";
 						break;
 					case '4':
-						$dia = "Jueves";
+						$Dia = "Jueves";
 						break;
 					case '5':
-						$dia = "Viernes";
+						$Dia = "Viernes";
 						break;
 					case '6':
-						$dia = "Sabado";
+						$Dia = "Sabado";
 						break;
 					case '7':
-						$dia = "Domingo";
+						$Dia = "Domingo";
 						break;
 					default:
-						$dia = "?";
+						$Dia = "?";
 						break;
 				}
-				return $dia;
+				return $Dia;
 			}
 			?>
 	</body>
