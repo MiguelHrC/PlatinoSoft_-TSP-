@@ -1,4 +1,10 @@
 <?php
+	session_start();
+	if(!isset($_SESSION['Loggedin']) && !$_SESSION['Loggedin']){
+	    echo "<script language='javascript'>window.location='FrmLogin.php'</script>";
+	    exit;
+	}
+
 	if (isset($_GET['id_tarea'])) {
 		include_once "../Clases/SQLControlador.php";
 		$Mysql = new MySQLConector();

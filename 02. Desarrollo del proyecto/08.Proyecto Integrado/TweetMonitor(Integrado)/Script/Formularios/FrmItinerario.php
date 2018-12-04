@@ -1,3 +1,11 @@
+<?php
+session_start();
+if(!isset($_SESSION['Loggedin']) && !$_SESSION['Loggedin']){
+    echo "<script language='javascript'>window.location='FrmLogin.php'</script>";
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,11 +39,6 @@
 	<!--Nuevo-->
 </head>
 <header>
-	<?php
-if (!isset($_SESSION)) {
-	session_start();
-}
-?>
 	<nav class="navbar navbar-default" role="navigation">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">

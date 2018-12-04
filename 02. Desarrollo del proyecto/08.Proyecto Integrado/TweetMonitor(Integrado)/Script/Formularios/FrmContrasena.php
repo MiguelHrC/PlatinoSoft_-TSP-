@@ -1,5 +1,9 @@
 <?php
     session_start();
+if(!isset($_SESSION['Loggedin']) && !$_SESSION['Loggedin']){
+    echo "<script language='javascript'>window.location='FrmLogin.php'</script>";
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -74,7 +78,7 @@
                 include_once "../Clases/MySQLConector.php";
                 $Mysql = new MySQLConector();
                 $Mysql->Conectar();
-                $Consulta = "SELECT * FROM usuarios where usuario =  '$Us' limit 1;";
+                $Consulta = "SELECT * FROM usuarios where Usuario =  '$Us' limit 1;";
                 $Resultado = $Mysql->Consulta($Consulta);
                 $Fila = mysqli_fetch_array($Resultado);
                 

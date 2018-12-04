@@ -60,11 +60,8 @@ session_start();
 </header>
 
 <body>
-    <div class="jumbotron">
-        <div class="container">
-            <h1>TweetMonitor</h1>
-            <h2>Sistema de monitoreo</h2>
-        </div>
+    <div class="text-center">
+        <img class='img-fluid' width='50%' src='imagenes/logo_big.png' alt='Logo'>
     </div>
     <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
