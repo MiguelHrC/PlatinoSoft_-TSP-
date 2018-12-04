@@ -1,12 +1,17 @@
 <?php
+	echo "Inicio\n";
 	$usuario = null;
 	$nombre_archivo = "log.txt";
 	date_default_timezone_set("America/Mexico_City");
 	include_once "/Script/Clases/MySQLConector.php";
+	echo "Intentando hacer coneccion a la base de datos\n";
 	$Mysql = new MySQLConector();
-	$Mysql->Conectar();	
+	$Mysql->Conectar();
+	echo "Conexion exitosa\n";
 
 	$fecha = date('Y-m-d H:i:s');
+
+	echo "Inicio de condicion si esta asignada la variable usuario\n";
 
 	if(isset($_POST['usuario']))
 	{
@@ -20,6 +25,9 @@
 		(usuario, fecha, texto, hashtag, permiso) 
 		VALUES 
 		('$usuario', '$fecha', '$texto', '$hashtag', '$permiso')";
+
+		echo $consulta;
+
 		if ($Mysql->Consulta($consulta) === TRUE) {
 			echo "Tweet agregado exitosamente!";
 		} else {

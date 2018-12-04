@@ -73,7 +73,7 @@
                     include_once "../Clases/MySQLConector.php";
                     $Mysql = new MySQLConector();
                     $Mysql->Conectar();
-                    $Consulta = "SELECT * FROM Usuarios where Usuario =  '$Us' limit 1;";
+                    $Consulta = "SELECT * FROM usuarios where Usuario =  '$Us' limit 1;";
                     $Resultado = $Mysql->Consulta($Consulta);
                     $Fila = mysqli_fetch_array($Resultado);
                     

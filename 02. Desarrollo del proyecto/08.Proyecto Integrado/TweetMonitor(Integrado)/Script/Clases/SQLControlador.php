@@ -62,7 +62,7 @@ class SQLControlador
 			echo "<script language='javascript'>alert('El usuario " . $Usuarios->getUsuario() . " ya se encuentra registrado')</script>";
 			echo "<script language='javascript'>window.location='../Formularios/FrmRegistrarUsuario.php'</script>";			
 		} else {
-			$Consulta = "INSERT INTO Usuarios (idUsuarios, Nombre, Contrasena, Correo, Usuario)
+			$Consulta = "INSERT INTO usuarios (idUsuarios, Nombre, Contrasena, Correo, Usuario)
 			VALUES (
 			null,
 			'" .
@@ -71,6 +71,7 @@ class SQLControlador
 				$Usuarios->getCorreo() . "','" .
 				$Usuarios->getUsuario() .
 				"');";
+			//echo "<script language='javascript'>alert('".$Consulta."')</script>";
 			echo "<script language='javascript'>alert('¡Registro completado con éxito!')</script>";
 			echo "<script language='javascript'>window.location='../Formularios/FrmLogin.php'</script>";			
 		}

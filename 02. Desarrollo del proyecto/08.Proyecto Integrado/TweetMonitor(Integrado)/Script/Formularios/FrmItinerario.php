@@ -118,7 +118,6 @@ if (!isset($_SESSION)) {
 		}
 		
 		if (isset($id_tarea) && $id_tarea != 0) {
-			echo "id_tarea = ".$id_tarea;
 			$Consulta = "SELECT * FROM tareas WHERE id_tarea = " . $id_tarea . ";";
 			$Resultado = $Mysql->Consulta($Consulta);
 			$Row = $Resultado->fetch_array(MYSQLI_ASSOC);
@@ -168,15 +167,15 @@ if (!isset($_SESSION)) {
 			$Date = date(strtotime($Fecha));
 			if (date('N', $Date) >= $Dia_Inicio && date('N', $Date) <= $Dia_Fin) {
 				if (date('H', $Date) >= $Hora_Inicio && date('H', $Date) <= $Hora_Fin) {
-					return "<strong style='color:green'>Comportamiento Normal<strong>";
+					return "<strong style='color:green'>Comportamiento Normal</strong>";
 				} else {
-					return "<strong style='color:red'>Comportamiento Extraño: Hora<strong>";
+					return "<strong style='color:red'>Comportamiento Extraño: Hora</strong>";
 				}
 			} else {
 				if (date('H', $Date) >= $Hora_Inicio && date('H', $Date) <= $Hora_Fin) {
-					return "<strong style='color:red'>Comportamiento Extraño: Dia<strong>";
+					return "<strong style='color:red'>Comportamiento Extraño: Dia</strong>";
 				} else {
-					return "<strong style='color:red'>Comportamiento Extraño: Dia y Hora<strong>";
+					return "<strong style='color:red'>Comportamiento Extraño: Dia y Hora</strong>";
 				}
 			}
 		}
