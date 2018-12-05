@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 04-12-2018 a las 05:53:21
+-- Tiempo de generación: 05-12-2018 a las 04:58:20
 -- Versión del servidor: 5.7.19
 -- Versión de PHP: 5.6.31
 
@@ -25,6 +25,23 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `permisos`
+--
+
+DROP TABLE IF EXISTS `permisos`;
+CREATE TABLE IF NOT EXISTS `permisos` (
+  `id_permiso` int(11) NOT NULL AUTO_INCREMENT,
+  `usuario_twitter` tinytext,
+  `usuario_tweetmonitor` tinytext,
+  PRIMARY KEY (`id_permiso`)
+) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `permisos`
+--
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `tareas`
 --
 
@@ -40,7 +57,11 @@ CREATE TABLE IF NOT EXISTS `tareas` (
   `hora_inicio` int(2) NOT NULL,
   `hora_fin` int(2) NOT NULL,
   PRIMARY KEY (`id_tarea`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tareas`
+--
 
 -- --------------------------------------------------------
 
@@ -55,16 +76,12 @@ CREATE TABLE IF NOT EXISTS `tweets` (
   `fecha` datetime NOT NULL,
   `texto` text,
   `hashtag` tinytext,
-  `permiso` tinytext,
   PRIMARY KEY (`id_tweet`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `tweets`
 --
-
-INSERT INTO `tweets` (`id_tweet`, `usuario`, `fecha`, `texto`, `hashtag`, `permiso`) VALUES
-(7, 'Batres35', '2018-12-03 23:27:59', 'Buenos dias #Escuela $Batres35 como andan los viejones?', 'Escuela', 'Batres35');
 
 -- --------------------------------------------------------
 
@@ -82,15 +99,11 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   PRIMARY KEY (`idUsuarios`),
   UNIQUE KEY `Correo` (`Correo`),
   UNIQUE KEY `Usuario` (`Usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
-
-INSERT INTO `usuarios` (`idUsuarios`, `Nombre`, `Contrasena`, `Correo`, `Usuario`) VALUES
-(1, 'Batres35', 'ee640a05cc8e6aa05cac4e7702b5f30e', 'juanluis.batresjuare@live.com', 'Batres35');
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

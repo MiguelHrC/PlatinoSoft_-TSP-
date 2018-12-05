@@ -1,17 +1,10 @@
 <?php
-	echo "Inicio\n";
 	$usuario = null;
 	$nombre_archivo = "log.txt";
 	date_default_timezone_set("America/Mexico_City");
-	include_once "/Script/Clases/MySQLConector.php";
-	echo "Intentando hacer coneccion a la base de datos\n";
-	$Mysql = new MySQLConector();
-	$Mysql->Conectar();
-	echo "Conexion exitosa\n";
+	require_once('conexion.php');
 
 	$fecha = date('Y-m-d H:i:s');
-
-	echo "Inicio de condicion si esta asignada la variable usuario\n";
 
 	if(isset($_POST['usuario']))
 	{
@@ -21,17 +14,23 @@
 		$hashtag = BuscarHashtag($texto);
 		$permiso = BuscarPermiso($texto);
 
-		$consulta = "INSERT INTO tweets 
-		(usuario, fecha, texto, hashtag, permiso) 
-		VALUES 
-		('$usuario', '$fecha', '$texto', '$hashtag', '$permiso')";
+		if (strcasecmp($hashtag,"permiso") == 0){
+			$query = "INSERT INTO permisos 
+			(usuario_twitter, usuario_tweetmonitor) 
+			VALUES 
+			('$usuario', '$permiso')";
+		}
+		else{
+			$query = "INSERT INTO tweets 
+			(usuario, fecha, texto, hashtag) 
+			VALUES 
+			('$usuario', '$fecha', '$texto', '$hashtag')";
+		}
 
-		echo $consulta;
-
-		if ($Mysql->Consulta($consulta) === TRUE) {
-			echo "Tweet agregado exitosamente!";
+		if ($conexion->query($query) === TRUE) {
+			echo "Agregado exitosamente!";
 		} else {
-			echo "Error en la consulta: ". $consulta ."\n Error: ".$Mysql->error; 
+			echo "Error en la consulta: ".$query."\n Error: ".$conexion->error; 
 		}
 	}
 

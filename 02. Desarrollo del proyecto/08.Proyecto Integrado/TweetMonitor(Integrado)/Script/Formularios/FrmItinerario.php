@@ -135,7 +135,8 @@ if(!isset($_SESSION['Loggedin']) && !$_SESSION['Loggedin']){
 			echo "<div class='comments-container'>";
 			echo "<h1>Itinerario <a href='#'>TweetMonitor</a></h1>";
 
-			$consulta = "SELECT usuario, fecha, texto, hashtag FROM `tweets` WHERE hashtag LIKE '$Hashtag' and usuario LIKE '$Usuario' AND permiso LIKE '" . $_SESSION['Usuario'] . "' ORDER BY fecha DESC;";
+			$consulta = "SELECT DISTINCT usuario, fecha, texto, hashtag FROM tweets inner join permisos WHERE tweets.usuario LIKE permisos.usuario_twitter AND hashtag LIKE '$Hashtag' and usuario LIKE '$Usuario' AND permisos.usuario_tweetmonitor LIKE '" . $_SESSION['Usuario'] . "' ORDER BY fecha DESC;";
+
 			$Resultado = $Mysql->Consulta($consulta);
 			if ($Resultado->num_rows > 0) {
 				while ($Row = $Resultado->fetch_array(MYSQLI_ASSOC)) {
