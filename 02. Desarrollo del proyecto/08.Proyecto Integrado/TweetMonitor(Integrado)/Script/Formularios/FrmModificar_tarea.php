@@ -114,15 +114,15 @@ if (!isset($_GET['tarea']) && !isset($_GET['id_usuario']) && !isset($_GET['usuar
 				$Mysql = new MySQLConector();
 				$Mysql->Conectar();
 
-				$Consulta = "SELECT DISTINCT usuario FROM `tweets` where permiso LIKE '" . $_SESSION['Usuario'] . "';";
+				$Consulta = "SELECT DISTINCT permisos.usuario_twitter FROM `tweets` inner join permisos WHERE tweets.usuario LIKE permisos.usuario_tweetmonitor AND permisos.usuario_tweetmonitor LIKE '" . $_SESSION['Usuario'] . "';";
 				$Resultado2 = $Mysql->Consulta($Consulta);
 
 				if ($Resultado->num_rows > 0) {
 					while ($Row2 = $Resultado2->fetch_array(MYSQLI_ASSOC)) {
-						if ($Row2['usuario'] == $Row['usuario_twitter']) {
-							echo "<option selected='true'>" . $Row2['usuario'] . "</option>";
+						if ($Row2['usuario_twitter'] == $Row['usuario_twitter']) {
+							echo "<option selected='true'>" . $Row2['usuario_twitter'] . "</option>";
 						} else {
-							echo "<option>" . $Row2['usuario'] . "</option>";
+							echo "<option>" . $Row2['usuario_twitter'] . "</option>";
 						}
 
 					}
