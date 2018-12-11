@@ -67,6 +67,7 @@ if(!isset($_SESSION['Loggedin']) && !$_SESSION['Loggedin']){
 
 <body>
 	<ul class="nav nav-tabs">
+		<li role="presentation"><a href="FrmTweets.php">Tweets</a></li>
 		<li role="presentation"><a href="FrmItinerario.php">Itinerario</a></li>
 		<li role="presentation"><a href="Frmagregar_tarea.php">Agregar tarea</a></li>
 		<li role="presentation" class="active"><a href="FrmConsultar_tareas.php">Consultar tareas</a></li>
