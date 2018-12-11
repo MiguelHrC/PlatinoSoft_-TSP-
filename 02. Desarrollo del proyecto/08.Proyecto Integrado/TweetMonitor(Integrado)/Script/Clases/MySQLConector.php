@@ -8,15 +8,16 @@
 		private $Conexion;
 
 		function __construct(){
+			/*
 			$this->Servidor = "sql5c75f.carrierzone.com";
 			$this->Usuario = "simapargco723098";
 			$this->password = "losplatinos18";
-			$this->BD = "platinosoft_simapargco723098";
+			$this->BD = "platinosoft_simapargco723098";*/
 
-			// $this->Servidor = "localhost";
-			// $this->Usuario = "root";
-			// $this->password = "";
-			// $this->BD = "tweetmonitor";
+			 $this->Servidor = "localhost";
+			 $this->Usuario = "root";
+			 $this->password = "";
+			 $this->BD = "tweetmonitor";
 		}
 
 		public function Conectar(){
