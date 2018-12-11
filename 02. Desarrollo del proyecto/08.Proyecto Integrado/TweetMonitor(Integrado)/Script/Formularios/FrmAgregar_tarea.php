@@ -100,7 +100,7 @@ if (!isset($_GET['tarea']) && !isset($_GET['id_usuario']) && !isset($_GET['usuar
 							$Mysql = new MySQLConector();
 							$Mysql->Conectar();
 
-							$consulta = "SELECT DISTINCT permisos.usuario_twitter FROM `tweets` inner join permisos WHERE tweets.usuario LIKE permisos.usuario_tweetmonitor AND permisos.usuario_tweetmonitor LIKE '" . $_SESSION['Usuario'] . "';";
+							$consulta = "SELECT DISTINCT usuario_twitter FROM permisos WHERE usuario_tweetmonitor LIKE '" . $_SESSION['Usuario'] . "';";
 							$Resultado = $Mysql->Consulta($consulta);
 
 							if ($Resultado->num_rows > 0) {
