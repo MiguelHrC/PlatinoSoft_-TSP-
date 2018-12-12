@@ -124,8 +124,8 @@
                     <h3>Ingrese los datos del usuario</h3>
                 </legend>
                 <?php 
-                if (!isset($_POST['Nombre']) && !isset($_POST['Correo']) && !isset($_POST['Usuario']) && !isset($_POST['Contrasena'])) {
-                    ?>
+                    if (!isset($_POST['Nombre']) && !isset($_POST['Correo']) && !isset($_POST['Usuario']) && !isset($_POST['Contrasena'])) {
+                ?>
                 <form method="POST" action="FrmRegistrarUsuario.php" class="form-horizontal">
                     <div class="form-group">
                         <label class="col-xs-12" for="Nombre" color="white">
@@ -174,24 +174,23 @@
     </div>
 </body>
     <?php 
-    } else {
-        $Nombre = $_POST['Nombre'];
-        $Correo = $_POST['Correo'];
-        $Usuario = $_POST['Usuario'];
-        $Contrasena = md5($_POST['Contrasena']);
-        //$Contrasena = password_hash($_POST['Contrasena'], PASSWORD_BCRYPT); 
+        } else {
+            $Nombre = $_POST['Nombre'];
+            $Correo = $_POST['Correo'];
+            $Usuario = $_POST['Usuario'];
+            $Contrasena = md5($_POST['Contrasena']);
 
-        include_once "../Clases/SQLControlador.php";
-        include_once "../Clases/Usuarios.php";
+            include_once "../Clases/SQLControlador.php";
+            include_once "../Clases/Usuarios.php";
 
-        $Usuarios = new Usuarios();
-        $Usuarios->setNombre($Nombre);
-        $Usuarios->setCorreo($Correo);
-        $Usuarios->setUsuario($Usuario);
-        $Usuarios->setContrasena($Contrasena);
+            $Usuarios = new Usuarios();
+            $Usuarios->setNombre($Nombre);
+            $Usuarios->setCorreo($Correo);
+            $Usuarios->setUsuario($Usuario);
+            $Usuarios->setContrasena($Contrasena);
 
-        $SQLControlador = new SQLControlador();
-        $SQLControlador->RegistrarUsuario($Usuarios);
-    }
+            $SQLControlador = new SQLControlador();
+            $SQLControlador->RegistrarUsuario($Usuarios);
+        }
     ?>
 </html>

@@ -10,7 +10,7 @@
 		$Mysql = new MySQLConector();
 		$Mysql->Conectar();
 
-	$Consulta = "DELETE FROM tareas WHERE id_tarea = ".$_GET['id_tarea'].";";
+		$Consulta = "DELETE FROM tareas WHERE id_tarea = ".$_GET['id_tarea'].";";
 		if ($Mysql->Consulta($Consulta) === TRUE) {
 			echo "<script language='javascript'>alert('Tarea eliminada con exito')</script>";   
             echo "<script language='javascript'>window.location='./FrmConsultar_tareas.php'</script>";

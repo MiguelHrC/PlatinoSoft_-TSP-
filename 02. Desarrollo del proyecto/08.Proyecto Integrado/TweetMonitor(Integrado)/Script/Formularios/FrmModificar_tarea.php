@@ -1,9 +1,9 @@
 <?php
-session_start();
-if(!isset($_SESSION['Loggedin']) && !$_SESSION['Loggedin']){
-    echo "<script language='javascript'>window.location='FrmLogin.php'</script>";
-    exit;
-}
+	session_start();
+	if(!isset($_SESSION['Loggedin']) && !$_SESSION['Loggedin']){
+    	echo "<script language='javascript'>window.location='FrmLogin.php'</script>";
+    	exit;
+	}
 ?>
 <!DOCTYPE html>
 <html>
@@ -80,14 +80,14 @@ if(!isset($_SESSION['Loggedin']) && !$_SESSION['Loggedin']){
 	</div>
 	
 	<?php
-if (!isset($_GET['tarea']) && !isset($_GET['id_usuario']) && !isset($_GET['usuario_twitter']) && !isset($_GET['hashtag']) && !isset($_GET['dia_inicio']) && !isset($_GET['dia_fin']) && !isset($_GET['hora_inicio']) && !isset($_GET['hora_fin'])) {
-	include_once "../Clases/MySQLConector.php";
-	$Mysql = new MySQLConector();
-	$Mysql->Conectar();
-	$Consulta = "SELECT * FROM tareas WHERE id_tarea = " . $_GET['id_tarea'] . ";";
-	$Resultado = $Mysql->Consulta($Consulta);
-	$Row = $Resultado->fetch_array(MYSQLI_ASSOC);
-	$Mysql->CerrarConexion();
+		if (!isset($_GET['tarea']) && !isset($_GET['id_usuario']) && !isset($_GET['usuario_twitter']) && !isset($_GET['hashtag']) && !isset($_GET['dia_inicio']) && !isset($_GET['dia_fin']) && !isset($_GET['hora_inicio']) && !isset($_GET['hora_fin'])) {
+			include_once "../Clases/MySQLConector.php";
+			$Mysql = new MySQLConector();
+			$Mysql->Conectar();
+			$Consulta = "SELECT * FROM tareas WHERE id_tarea = " . $_GET['id_tarea'] . ";";
+			$Resultado = $Mysql->Consulta($Consulta);
+			$Row = $Resultado->fetch_array(MYSQLI_ASSOC);
+			$Mysql->CerrarConexion();
 	?>
 	<form action="FrmModificar_tarea.php" method="get">
 		<p></p>
@@ -125,7 +125,6 @@ if (!isset($_GET['tarea']) && !isset($_GET['id_usuario']) && !isset($_GET['usuar
 						} else {
 							echo "<option>" . $Row2['usuario_twitter'] . "</option>";
 						}
-
 					}
 				}
 				$Mysql->CerrarConexion();

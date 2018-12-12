@@ -1,9 +1,9 @@
 <?php
-session_start();
-if(!isset($_SESSION['Loggedin']) && !$_SESSION['Loggedin']){
-    echo "<script language='javascript'>window.location='FrmLogin.php'</script>";
-    exit;
-}
+	session_start();
+	if(!isset($_SESSION['Loggedin']) && !$_SESSION['Loggedin']){
+    	echo "<script language='javascript'>window.location='FrmLogin.php'</script>";
+    	exit;
+	}
 ?>
 
 <!DOCTYPE html>
@@ -80,22 +80,20 @@ if(!isset($_SESSION['Loggedin']) && !$_SESSION['Loggedin']){
 		<div class="col-xs-8 col-xs-offset-1">
 			<select name="id_tarea" class="form-control Input">
 				<?php
-			include_once "../Clases/MySQLConector.php";
-			include_once "../Clases/Tareas.php";
+					include_once "../Clases/MySQLConector.php";
+					include_once "../Clases/Tareas.php";
 
-			$Mysql = new MySQLConector();
-			$Mysql->Conectar();
+					$Mysql = new MySQLConector();
+					$Mysql->Conectar();
 
-			$Consulta = "SELECT * FROM tareas WHERE id_usuario = " . $_SESSION['IdUsuario'] . ";";
-
-			$Resultado = $Mysql->Consulta($Consulta);
-
-			if ($Resultado->num_rows > 0) {
-				while ($Row = $Resultado->fetch_array(MYSQLI_ASSOC)) {
-					echo "<option value='" . $Row['id_tarea'] . "'>" . $Row['tarea'] . " - " . $Row['usuario_twitter'] . "</option>\n";
-				}
-			}
-			?>
+					$Consulta = "SELECT * FROM tareas WHERE id_usuario = " . $_SESSION['IdUsuario'] . ";";
+					$Resultado = $Mysql->Consulta($Consulta);
+					if ($Resultado->num_rows > 0) {
+						while ($Row = $Resultado->fetch_array(MYSQLI_ASSOC)) {
+							echo "<option value='" . $Row['id_tarea'] . "'>" . $Row['tarea'] . " - " . $Row['usuario_twitter'] . "</option>\n";
+						}
+					}
+				?>
 			</select><br>
 		</div>
 		<div class="col-xs-8 col-xs-offset-1">
@@ -108,21 +106,21 @@ if(!isset($_SESSION['Loggedin']) && !$_SESSION['Loggedin']){
 		include_once "../Clases/Tareas.php";
 		$Mysql = new MySQLConector();
 		$Mysql->Conectar();
-		$id_tarea = 0;
+		$Id_tarea = 0;
 		if(isset($_GET['id_tarea'])){
-			$id_tarea = $_GET['id_tarea'];
+			$Id_tarea = $_GET['id_tarea'];
 		}
 		else{
 			$query = "SELECT id_tarea FROM tareas WHERE id_usuario = ".$_SESSION['IdUsuario'].";";
-			$result = $Mysql->Consulta($query);
-			if ($result->num_rows > 0) {
-				$row = $result->fetch_array(MYSQLI_ASSOC);
-				$id_tarea = $row['id_tarea'];
+			$Result = $Mysql->Consulta($query);
+			if ($Result->num_rows > 0) {
+				$Row = $Result->fetch_array(MYSQLI_ASSOC);
+				$Id_tarea = $Row['id_tarea'];
 			}
 		}
 		
-		if (isset($id_tarea) && $id_tarea != 0) {
-			$Consulta = "SELECT * FROM tareas WHERE id_tarea = " . $id_tarea . ";";
+		if (isset($Id_tarea) && $Id_tarea != 0) {
+			$Consulta = "SELECT * FROM tareas WHERE id_tarea = " . $Id_tarea . ";";
 			$Resultado = $Mysql->Consulta($Consulta);
 			$Row = $Resultado->fetch_array(MYSQLI_ASSOC);
 
@@ -136,9 +134,9 @@ if(!isset($_SESSION['Loggedin']) && !$_SESSION['Loggedin']){
 			echo "<div class='comments-container'>";
 			echo "<h1>Itinerario <a href='#'>TweetMonitor</a></h1>";
 
-			$consulta = "SELECT DISTINCT usuario, fecha, texto, hashtag FROM tweets inner join permisos WHERE tweets.usuario LIKE permisos.usuario_twitter AND hashtag LIKE '$Hashtag' and usuario LIKE '$Usuario' AND permisos.usuario_tweetmonitor LIKE '" . $_SESSION['Usuario'] . "' ORDER BY fecha DESC;";
+			$Consulta = "SELECT DISTINCT usuario, fecha, texto, hashtag FROM tweets inner join permisos WHERE tweets.usuario LIKE permisos.usuario_twitter AND hashtag LIKE '$Hashtag' and usuario LIKE '$Usuario' AND permisos.usuario_tweetmonitor LIKE '" . $_SESSION['Usuario'] . "' ORDER BY fecha DESC;";
 
-			$Resultado = $Mysql->Consulta($consulta);
+			$Resultado = $Mysql->Consulta($Consulta);
 			if ($Resultado->num_rows > 0) {
 				while ($Row = $Resultado->fetch_array(MYSQLI_ASSOC)) {
 					echo "<ul id='comments-list' class='comments-list'>";

@@ -1,5 +1,4 @@
 <?php
-	
 	class Usuarios{
 
 		private $idUsuarios;
@@ -8,7 +7,6 @@
 		private $Correo;
 		private $Usuario;
 		
-
 		function __construct(){
 			$this -> idUsuarios = 0;
 			$this -> Nombre = null;
@@ -47,7 +45,5 @@
 		public function getUsuario(){
 			return $this -> Usuario;
 		}
-		
 	}
-
 ?>

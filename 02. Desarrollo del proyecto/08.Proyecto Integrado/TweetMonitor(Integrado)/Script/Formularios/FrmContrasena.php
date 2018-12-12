@@ -1,9 +1,9 @@
 <?php
     session_start();
-if(!isset($_SESSION['Loggedin']) && !$_SESSION['Loggedin']){
-    echo "<script language='javascript'>window.location='FrmLogin.php'</script>";
-    exit;
-}
+    if(!isset($_SESSION['Loggedin']) && !$_SESSION['Loggedin']){
+        echo "<script language='javascript'>window.location='FrmLogin.php'</script>";
+        exit;
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -121,12 +121,11 @@
         <div class="row">
             <fieldset class="col-xs-10 col-xs-offset-1">
                 <legend class="hiddent-xs">
-                    <h3>Inició de sesión</h3>
+                    <h3>Inicio de sesión</h3>
                 </legend>
                 <?php  
-                        if (!isset($_POST['Usuario']) | !isset($_POST['Contrasena'])) {
-                        
-                     ?>
+                    if (!isset($_POST['Usuario']) | !isset($_POST['Contrasena'])) {      
+                ?>
                 <form method="POST" action="FrmLogin.php" class="form-horizontal">
                     <div class="form-group">
                         <label class="col-xs-12" for="usuario">
@@ -151,36 +150,32 @@
                 </form>
                 <a href="FrmRegistrarUsuario.php"><input class="btn btn-primary center-block " type="submit" name="Agregar" value="Registrar"></input></a><br>
                 <?php 
+                    }else{
+                        $Usuario = $_POST['Usuario'];
+                        $Contrasena = md5($_POST['Contrasena']); 
+
+                        include_once "../Clases/SQLControlador.php";
+                        include_once "../Clases/Usuarios.php";
+
+                        $Usuarios = new Usuarios();
+                        $Usuarios -> setUsuario($Usuario);
+                        $Usuarios -> setContrasena($Contrasena);
+
+                        $SQLControlador = new SQLControlador();
+                        if ($SQLControlador -> IniciarSesion($Usuarios)){
+                            $_SESSION['Loggedin'] = true;
+                            $_SESSION['Usuario'] = $Usuario;
+                            $_SESSION['IdUsuario'] = $SQLControlador -> GetIdUsuario($Usuarios);
+                            $_SESSION['Contador'] = 0;
+                             echo "<script language='javascript'>window.location = './FrmItinerario.php'</script>";
                         }else{
-                            $Usuario = $_POST['Usuario'];
-                            $Contrasena = md5($_POST['Contrasena']); 
-
-                            include_once "../Clases/SQLControlador.php";
-                            include_once "../Clases/Usuarios.php";
-
-                            $Usuarios = new Usuarios();
-                            $Usuarios -> setUsuario($Usuario);
-                            $Usuarios -> setContrasena($Contrasena);
-
-                            $SQLControlador = new SQLControlador();
-                            if ($SQLControlador -> IniciarSesion($Usuarios)){
-                                $_SESSION['Loggedin'] = true;
-                                $_SESSION['Usuario'] = $Usuario;
-                                $_SESSION['IdUsuario'] = $SQLControlador -> GetIdUsuario($Usuarios);
-
-                                $_SESSION['Contador'] = 0;
-                                echo "<script language='javascript'>window.location = './FrmItinerario.php'</script>";
-                            }
-                            else
-                            {
-                                echo "<script language='javascript'>alert('Usuario y/o Contraseña incorrectos')</script>";   
-                                echo "<script language='javascript'>window.location = './FrmLogin.php'</script>";
-                            }
+                            echo "<script language='javascript'>alert('Usuario y/o Contraseña incorrectos')</script>";   
+                            echo "<script language='javascript'>window.location = './FrmLogin.php'</script>";
                         }
-                    ?>
+                    }
+                ?>
             </fieldset>
         </div>
     </div>
-
 </body>
 </html>

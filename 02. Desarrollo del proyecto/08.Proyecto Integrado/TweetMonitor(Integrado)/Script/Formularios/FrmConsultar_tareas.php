@@ -1,9 +1,9 @@
 <?php
-session_start();
-if(!isset($_SESSION['Loggedin']) && !$_SESSION['Loggedin']){
-	echo "<script language='javascript'>window.location='FrmLogin.php'</script>";
-	exit;
-}
+	session_start();
+	if(!isset($_SESSION['Loggedin']) && !$_SESSION['Loggedin']){
+		echo "<script language='javascript'>window.location='FrmLogin.php'</script>";
+		exit;
+	}
 ?>
 <!DOCTYPE html>
 <html>
@@ -29,11 +29,11 @@ if(!isset($_SESSION['Loggedin']) && !$_SESSION['Loggedin']){
 	 crossorigin="anonymous"></script>
 </head>
 <header align="center">
-	<?php
-		if (!isset($_SESSION)) {
-			session_start();
-		}
-	?>
+<?php
+	if (!isset($_SESSION)) {
+		session_start();
+	}
+?>
 	<nav class="navbar navbar-default" role="navigation">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -88,9 +88,18 @@ if(!isset($_SESSION['Loggedin']) && !$_SESSION['Loggedin']){
 					</tr>
 				</thead>
 				<tbody>
+					<script type="text/javascript">
+						function Confirmation() {
+							if (confirm('¿Esta seguro de eliminar la tarea?')==true) {
+							   // alert('El registro ha sido eliminado correctamente!!!');
+							    return true;
+							}else{
+							    return false;
+							}
+						}
+					</script>
 		<?php		
-		include_once "../Clases/MySQLConector.php";
-
+			include_once "../Clases/MySQLConector.php";
 			$Mysql = new MySQLConector();
 			$Mysql->Conectar();
 
@@ -109,7 +118,7 @@ if(!isset($_SESSION['Loggedin']) && !$_SESSION['Loggedin']){
 					echo "<td>" . $Row['hora_fin'] . "</td>";
 					echo "<td>";
 					echo "<a href='FrmModificar_tarea.php?id_tarea=" . $Row['id_tarea'] . "' class='btn btn-primary glyphicon glyphicon-pencil'></a>";
-					echo "	<a href='./eliminar_tarea.php?id_tarea=" . $Row['id_tarea'] . "' class='btn btn-danger glyphicon glyphicon-minus'></a>";
+					echo "	<a onclick='return Confirmation()' href='./eliminar_tarea.php?id_tarea=" . $Row['id_tarea'] . "' class='btn btn-danger glyphicon glyphicon-minus'></a>";
 					echo "</td>";
 					echo "</tr>";
 				}
@@ -150,7 +159,6 @@ if(!isset($_SESSION['Loggedin']) && !$_SESSION['Loggedin']){
 				}
 				return $Dia;
 			}
-			?>
+		?>
 	</body>
-
 </html>

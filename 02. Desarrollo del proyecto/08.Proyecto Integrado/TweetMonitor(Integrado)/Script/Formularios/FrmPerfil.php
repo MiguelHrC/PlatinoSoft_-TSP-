@@ -1,9 +1,9 @@
 <?php
-session_start();
-if(!isset($_SESSION['Loggedin']) && !$_SESSION['Loggedin']){
-    echo "<script language='javascript'>window.location='FrmLogin.php'</script>";
-    exit;
-}
+    session_start();
+    if(!isset($_SESSION['Loggedin']) && !$_SESSION['Loggedin']){
+        echo "<script language='javascript'>window.location='FrmLogin.php'</script>";
+        exit;
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -73,20 +73,20 @@ if(!isset($_SESSION['Loggedin']) && !$_SESSION['Loggedin']){
                 </h3>
             </legend>
             <?php  
-                    $Us = $_SESSION['Usuario'];
-                    include_once "../Clases/MySQLConector.php";
-                    $Mysql = new MySQLConector();
-                    $Mysql->Conectar();
-                    $Consulta = "SELECT * FROM usuarios where Usuario =  '$Us' limit 1;";
-                    $Resultado = $Mysql->Consulta($Consulta);
-                    $Fila = mysqli_fetch_array($Resultado);
+                $Us = $_SESSION['Usuario'];
+                include_once "../Clases/MySQLConector.php";
+                $Mysql = new MySQLConector();
+                $Mysql->Conectar();
+                $Consulta = "SELECT * FROM usuarios where Usuario =  '$Us' limit 1;";
+                $Resultado = $Mysql->Consulta($Consulta);
+                $Fila = mysqli_fetch_array($Resultado);
                     
-                    $IdUsuario = $Fila[0];
-                    $Nombre = $Fila [1];
-                    $Correo = $Fila [3];
-                    $Usuario = $Fila [4];
+                $IdUsuario = $Fila[0];
+                $Nombre = $Fila [1];
+                $Correo = $Fila [3];
+                $Usuario = $Fila [4];
                     
-                        if (!isset($_POST['Nombre']) && !isset($_POST['Correo']) && !isset($_POST['Usuario'])) {                         
+                if (!isset($_POST['Nombre']) && !isset($_POST['Correo']) && !isset($_POST['Usuario'])) {                         
             ?>
             <form method="POST" action="./FrmPerfil.php" class="form-horizontal">
                 <div class="form-group">
@@ -135,7 +135,6 @@ if(!isset($_SESSION['Loggedin']) && !$_SESSION['Loggedin']){
                 }else{
                     $Nombrem = $_POST['Nombre'];
                     $Correom = $_POST['Correo']; 
-                    //$Contrasena = password_hash($_POST['Contrasena'], PASSWORD_BCRYPT); 
 
                     include_once "../Clases/SQLControlador.php";
                     include_once "../Clases/Usuarios.php";
@@ -147,14 +146,14 @@ if(!isset($_SESSION['Loggedin']) && !$_SESSION['Loggedin']){
                     $Usuarios -> setUsuario($Usuario);
 
                     $SQLControlador = new SQLControlador();
-                        if ($Nombre == $Nombrem && $Correo == $Correom){
-                            echo "<script language='javascript'>alert('No se registraron cambios')</script>";
-                            echo "<script language='javascript'>window.location='../Formularios/FrmPerfil.php'</script>";
-                        }else{
-                            $SQLControlador->ModificarUsuario($Usuarios);
-                        }
+                    if ($Nombre == $Nombrem && $Correo == $Correom){
+                        echo "<script language='javascript'>alert('No se registraron cambios')</script>";
+                        echo "<script language='javascript'>window.location='../Formularios/FrmPerfil.php'</script>";
+                    }else{
+                        $SQLControlador->ModificarUsuario($Usuarios);
                     }
-                ?>
+                }
+            ?>
         </fieldset>
     </div>
     </div>

@@ -1,9 +1,9 @@
 <?php
-session_start();
-if(!isset($_SESSION['Loggedin']) && !$_SESSION['Loggedin']){
-    echo "<script language='javascript'>window.location='FrmLogin.php'</script>";
-    exit;
-}
+	session_start();
+	if(!isset($_SESSION['Loggedin']) && !$_SESSION['Loggedin']){
+    	echo "<script language='javascript'>window.location='FrmLogin.php'</script>";
+    	exit;
+	}
 ?>
 
 <!DOCTYPE html>
@@ -83,9 +83,9 @@ if(!isset($_SESSION['Loggedin']) && !$_SESSION['Loggedin']){
 		echo "<div class='comments-container'>";
 		echo "<h1>Itinerario <a href='#'>TweetMonitor</a></h1>";
 
-		$consulta = "SELECT DISTINCT usuario, fecha, texto, hashtag FROM tweets inner join permisos WHERE tweets.usuario LIKE permisos.usuario_twitter AND permisos.usuario_tweetmonitor LIKE '" . $_SESSION['Usuario'] . "' ORDER BY fecha DESC;";
+		$Consulta = "SELECT DISTINCT usuario, fecha, texto, hashtag FROM tweets inner join permisos WHERE tweets.usuario LIKE permisos.usuario_twitter AND permisos.usuario_tweetmonitor LIKE '" . $_SESSION['Usuario'] . "' ORDER BY fecha DESC;";
 
-		$Resultado = $Mysql->Consulta($consulta);
+		$Resultado = $Mysql->Consulta($Consulta);
 		if ($Resultado->num_rows > 0) {
 			while ($Row = $Resultado->fetch_array(MYSQLI_ASSOC)) {
 				echo "<ul id='comments-list' class='comments-list'>";
@@ -113,5 +113,4 @@ if(!isset($_SESSION['Loggedin']) && !$_SESSION['Loggedin']){
 		echo "</div>";
 	?>
 </body>
-
 </html>

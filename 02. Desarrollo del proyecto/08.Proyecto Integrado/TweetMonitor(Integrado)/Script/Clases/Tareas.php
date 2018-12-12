@@ -52,36 +52,28 @@
 		}
 		public function getHastag(){
 			return $this -> Hastag;
-        }
-        
+        }        
         public function setDia_inicio($Dia_inicio){
 			$this -> Dia_inicio = $Dia_inicio;
         }
-        
 		public function getDia_inicio(){
 			return $this -> Dia_inicio;
         }
-
         public function setDia_Fin($Dia_Fin){
 			$this -> Dia_Fin = $Dia_Fin;
         }
-        
 		public function getDia_Fin(){
 			return $this -> Dia_Fin;
         }
-
         public function setHora_Inicio($Hora_Inicio){
 			$this -> Hora_Inicio = $Hora_Inicio;
         }
-        
 		public function getHora_Inicio(){
 			return $this -> Hora_Inicio;
         }
-
         public function setHora_Fin($Hora_Fin){
 			$this -> Hora_Fin = $Hora_Fin;
         }
-        
 		public function getHora_Fin(){
 			return $this -> Hora_Fin;
         }

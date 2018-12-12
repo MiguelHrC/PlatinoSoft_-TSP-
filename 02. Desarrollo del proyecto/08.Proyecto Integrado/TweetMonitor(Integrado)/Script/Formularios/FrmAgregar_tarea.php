@@ -1,9 +1,9 @@
 <?php
 	session_start();
 	if(!isset($_SESSION['Loggedin']) && !$_SESSION['Loggedin']){
-	echo "<script language='javascript'>window.location='FrmLogin.php'</script>";
-	exit;
-}
+		echo "<script language='javascript'>window.location='FrmLogin.php'</script>";
+		exit;
+	}
 ?>
 <!DOCTYPE html>
 <html>
@@ -31,10 +31,10 @@
 	 crossorigin="anonymous"></script>
 </head>
 <header align="center">
-	<?php
-if (!isset($_SESSION)) {
-	session_start();
-}
+<?php
+	if (!isset($_SESSION)) {
+		session_start();
+	}
 ?>
 	<nav class="navbar navbar-default" role="navigation">
 		<div class="navbar-header">
@@ -70,9 +70,9 @@ if (!isset($_SESSION)) {
 		<li role="presentation" class="active"><a href="FrmAgregar_tarea.php">Agregar tarea</a></li>
 		<li role="presentation"><a href="FrmConsultar_tareas.php">Consultar tareas</a></li>
 	</ul>
-	<?php
-if (!isset($_GET['tarea']) && !isset($_GET['id_usuario']) && !isset($_GET['usuario_twitter']) && !isset($_GET['hashtag']) && !isset($_GET['dia_inicio']) && !isset($_GET['dia_fin']) && !isset($_GET['hora_inicio']) && !isset($_GET['hora_fin'])) {
-	?>
+<?php
+	if (!isset($_GET['tarea']) && !isset($_GET['id_usuario']) && !isset($_GET['usuario_twitter']) && !isset($_GET['hashtag']) && !isset($_GET['dia_inicio']) && !isset($_GET['dia_fin']) && !isset($_GET['hora_inicio']) && !isset($_GET['hora_fin'])) {
+?>
 	<article class="main--content container" role="article">
 		<div class="post--content">
 			<form action="FrmAgregar_tarea.php" method="get">
@@ -101,8 +101,8 @@ if (!isset($_GET['tarea']) && !isset($_GET['id_usuario']) && !isset($_GET['usuar
 							$Mysql = new MySQLConector();
 							$Mysql->Conectar();
 
-							$consulta = "SELECT DISTINCT usuario_twitter FROM permisos WHERE usuario_tweetmonitor LIKE '" . $_SESSION['Usuario'] . "';";
-							$Resultado = $Mysql->Consulta($consulta);
+							$Consulta = "SELECT DISTINCT usuario_twitter FROM permisos WHERE usuario_tweetmonitor LIKE '" . $_SESSION['Usuario'] . "';";
+							$Resultado = $Mysql->Consulta($Consulta);
 
 							if ($Resultado->num_rows > 0) {
 								while ($row = $Resultado->fetch_array(MYSQLI_ASSOC)) {
@@ -110,7 +110,7 @@ if (!isset($_GET['tarea']) && !isset($_GET['id_usuario']) && !isset($_GET['usuar
 								}
 							}
 							$Mysql->CerrarConexion();
-							?>
+						?>
 						</select>
 					</div>
 				</div>
@@ -187,6 +187,7 @@ if (!isset($_GET['tarea']) && !isset($_GET['id_usuario']) && !isset($_GET['usuar
 	</article>
 	<?php
 		} else {
+			
 			$Tarea = $_GET['tarea'];
 			$Id_Usuario = $_GET['id_usuario'];
 			$Usuario_Twitter = $_GET['usuario_twitter'];
