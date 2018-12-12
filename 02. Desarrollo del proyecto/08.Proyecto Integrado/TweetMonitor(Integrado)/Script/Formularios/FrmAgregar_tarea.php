@@ -65,6 +65,7 @@ if (!isset($_SESSION)) {
 
 <body>
 	<ul class="nav nav-tabs">
+		<li role="presentation"><a href="FrmTweets.php">Tweets</a></li>
 		<li role="presentation"><a href="FrmItinerario.php">Itinerario</a></li>
 		<li role="presentation" class="active"><a href="FrmAgregar_tarea.php">Agregar tarea</a></li>
 		<li role="presentation"><a href="FrmConsultar_tareas.php">Consultar tareas</a></li>
@@ -100,7 +101,7 @@ if (!isset($_GET['tarea']) && !isset($_GET['id_usuario']) && !isset($_GET['usuar
 							$Mysql = new MySQLConector();
 							$Mysql->Conectar();
 
-							$consulta = "SELECT DISTINCT permisos.usuario_twitter FROM `tweets` inner join permisos WHERE tweets.usuario LIKE permisos.usuario_tweetmonitor AND permisos.usuario_tweetmonitor LIKE '" . $_SESSION['Usuario'] . "';";
+							$consulta = "SELECT DISTINCT usuario_twitter FROM permisos WHERE usuario_tweetmonitor LIKE '" . $_SESSION['Usuario'] . "';";
 							$Resultado = $Mysql->Consulta($consulta);
 
 							if ($Resultado->num_rows > 0) {
